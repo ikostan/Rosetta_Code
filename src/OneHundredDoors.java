@@ -1,5 +1,5 @@
 
-public class OneHundredDoors {
+public class OneHundredDoors implements MainInterface{
 
 	/*
 	 Headline text - Task 100 doors
@@ -23,6 +23,22 @@ public class OneHundredDoors {
 		Answer >>> Open Doors: 1, 4, 9, 16, 25, 36, 49, 64, 81, 100
 	 */
 	
+	
+	private String taskName = "100 doors";
+	private String taskDescription = "You are encouraged to solve this task according to the task description, using any language you may know.\n"
+	+ "\n- There are 100 doors in a row that are all initially closed."
+	+ "\n- You make 100 passes by the doors."
+	+ "\n- The first time through, visit every door and toggle the door (if the door is closed, open it; if it is open, close it)."
+	+ "\n- The second time, only visit every 2nd door (door #2, #4, #6, ...), and toggle it."
+	+ "\n- The third time, visit every 3rd door (door #3, #6, #9, ...), etc, until you only visit the 100th door.\n"
+	+ "\nAnswer the question:   what state are the doors in after the last pass?   Which are open, which are closed?\n"
+	+ "\nAlternate: As noted in this page's discussion page, the only doors that remain open are those whose numbers are perfect squares.\n"
+	+ "\nOpening only those doors is an optimization that may also be expressed; "
+	+ "However, as should be obvious, this defeats the intent of comparing implementations across programming languages."; 
+	private String taskLink = "<html><a href=\"https://rosettacode.org/wiki/100_doors\">Source</a></html>";
+	private static String result;
+
+	
 	private static boolean[] doors;
 	
 	public OneHundredDoors(){
@@ -32,11 +48,6 @@ public class OneHundredDoors {
 			//There are 100 doors in a row that are all initially closed.
 			door = false;
 		}
-	}
-	
-	public static void main(String[] args) {
-		
-		new OneHundredDoors();
 		
 		for(int a = 1; a <= doors.length; a++){ // You make 100 passes by the doors.
 			
@@ -67,8 +78,35 @@ public class OneHundredDoors {
 			index++;
 		}
 			
-		System.out.println(output);
+		//System.out.println(output);
+		setResult(output);
+	}
+	
+
+	
+	public String getTaskName(){
 		
+		return this.taskName;
+	}
+	
+	public String getTaskDescription(){
+		
+		return this.taskDescription;
+	}
+
+	public String getTaskLink(){
+	
+		return this.taskLink;
+	}
+	
+	public String getTaskResult(){
+		
+		return this.result;
+	}
+	
+	public static void setResult(String newResult){
+		
+		result = newResult;
 	}
 	
 }

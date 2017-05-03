@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Description {
+public class Description_old {
 	
 	/*
 	 *SOURCE: https://rosettacode.org/wiki/Rosetta_Code
@@ -13,9 +13,9 @@ public class Description {
 	 */	
 	
 	private static ArrayList<String[]> subjectList = new ArrayList<>(); 
-	String[] myString1 = {"hey","hey","hey"}; 
+	String[] myString1; 
 	
-	public Description() {
+	public Description_old() {
 		
 		String[] myString1= {
 				"1",
@@ -30,7 +30,8 @@ public class Description {
 				+ "\nAlternate: As noted in this page's discussion page, the only doors that remain open are those whose numbers are perfect squares.\n"
 				+ "\nOpening only those doors is an optimization that may also be expressed; "
 				+ "However, as should be obvious, this defeats the intent of comparing implementations across programming languages. ", 
-				"<html><a href=\"https://rosettacode.org/wiki/100_doors\">Source</a></html>"}; 
+				"<html><a href=\"https://rosettacode.org/wiki/100_doors\">Source</a></html>",
+				"OneHundredDoors class"}; 
 	    	
 		subjectList.add(myString1);
 		

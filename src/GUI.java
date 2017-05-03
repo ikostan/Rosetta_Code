@@ -16,9 +16,13 @@ import java.awt.SystemColor;
 
 public class GUI extends JFrame{
 	
+	private static final long serialVersionUID = 1L;
 	private JTextField txtNumber;
 	private JTextField textTitle;
-	private JTextArea textAreaDescription;
+	private JTextArea textAreaDescription, textAreaSolution;
+	Object solution;
+	
+	String[] description;
 	
 	private JProgressBar progressBar;
 	
@@ -29,7 +33,7 @@ public class GUI extends JFrame{
 	//Main method
 	public static void main(String[] args) {
 		
-		new Description();
+		new Classes();
 		new GUI();
 	}
 	
@@ -39,7 +43,7 @@ public class GUI extends JFrame{
 		setTitle("Rosetta Code");
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(600, 450);
+		this.setSize(600, 550);
 		getContentPane().setLayout(null);
 		
 		setTxtField();
@@ -55,18 +59,18 @@ public class GUI extends JFrame{
 		//Constructor
 	}
 	
-	//Update GUI sceen - show question description, number and progress bar
+	//Update GUI screen - show question description, number and progress bar
 	private void showDescription(int id){
 		
-		String[] description = Description.getSubject(id);
+		description = Classes.getObject(id);
 		txtNumber.setText(String.format("%d", id+1));
 		progressBar.setValue(id+1);
 		progressBar.setStringPainted(true);
 		
 		try{
 			
-			textTitle.setText(description[1]);
-			textAreaDescription.setText(description[2]);
+			textTitle.setText(description[0]);
+			textAreaDescription.setText(description[1]);
 		} 
 		catch(Exception ex){
 			
@@ -86,7 +90,8 @@ public class GUI extends JFrame{
 				System.exit(0);
 			}
 		});
-		btnNewButton.setBounds(504, 377, 80, 25);
+		
+		btnNewButton.setBounds(504, 485, 80, 25);
 		getContentPane().add(btnNewButton);
 		
 		JButton btnStart = new JButton("First");
@@ -102,7 +107,8 @@ public class GUI extends JFrame{
 				}
 			}
 		});
-		btnStart.setBounds(10, 377, 80, 25);
+		
+		btnStart.setBounds(10, 485, 80, 25);
 		getContentPane().add(btnStart);
 		
 		JButton button_1 = new JButton("<<< ");
@@ -121,7 +127,8 @@ public class GUI extends JFrame{
 				}
 			}
 		});
-		button_1.setBounds(100, 377, 80, 25);
+		
+		button_1.setBounds(95, 485, 80, 25);
 		getContentPane().add(button_1);
 		
 		JButton btnNext = new JButton(">>>");
@@ -139,7 +146,8 @@ public class GUI extends JFrame{
 				}
 			}
 		});
-		btnNext.setBounds(192, 377, 80, 25);
+		
+		btnNext.setBounds(180, 485, 80, 25);
 		getContentPane().add(btnNext);
 		
 		JButton btnLast = new JButton("Last");
@@ -155,11 +163,18 @@ public class GUI extends JFrame{
 				}
 			}
 		});
-		btnLast.setBounds(282, 377, 80, 25);
+		btnLast.setBounds(265, 485, 80, 25);
 		getContentPane().add(btnLast);
 		
-		JButton buttonSolution = new JButton("Solution");
-		buttonSolution.setBounds(372, 377, 80, 25);
+		JButton buttonSolution = new JButton("RUN");
+		buttonSolution.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				textAreaSolution.setText(description[2]);
+			}
+		});
+		buttonSolution.setBounds(504, 372, 80, 54);
 		getContentPane().add(buttonSolution);	
 	}
 	
@@ -190,8 +205,10 @@ public class GUI extends JFrame{
 		getContentPane().add(lblTitle);
 	}
 	
+	//Solution and description areas
 	private void setTextArea(){
 		
+		//Description
 		textAreaDescription = new JTextArea();
 		textAreaDescription.setForeground(Color.BLACK);
 		textAreaDescription.setBackground(SystemColor.inactiveCaptionBorder);
@@ -202,18 +219,30 @@ public class GUI extends JFrame{
 		
 		textAreaDescription.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 		
-		JScrollPane scroolPane = new JScrollPane(textAreaDescription);
-		scroolPane.setBounds(11,54,574,288);
-		getContentPane().add(scroolPane);			
+		JScrollPane scroollPane1 = new JScrollPane(textAreaDescription);
+		scroollPane1.setBounds(10,53,574,288);
+		getContentPane().add(scroollPane1);	
+		
+		//Solution
+		textAreaSolution = new JTextArea();
+		textAreaSolution.setForeground(Color.BLACK);
+		textAreaSolution.setBackground(SystemColor.inactiveCaptionBorder);
+		textAreaSolution.setEditable(false);
+		textAreaSolution.setLineWrap(true);
+		textAreaSolution.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		textAreaSolution.setBounds(10, 353, 485, 95);
+		
+		JScrollPane scrollPane2 = new JScrollPane(textAreaSolution);
+		scrollPane2.setBounds(10, 353, 485, 95);
+		getContentPane().add(scrollPane2);
 	}
 	
 	private void setProgressBar(){
 		
 		progressBar = new JProgressBar();
-		progressBar.setBounds(10, 353, 574, 14);
+		progressBar.setBounds(10, 460, 574, 14);
 		getContentPane().add(progressBar);
 	}
-	
 	
 	//END
 }
