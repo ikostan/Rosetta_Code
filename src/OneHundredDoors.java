@@ -20,11 +20,9 @@ public class OneHundredDoors {
 		However, as should be obvious, this defeats the intent of comparing implementations across programming languages. 
 		
 			  
-		Open Doors: 1, 4, 9, 16, 25, 36, 49, 64, 81, 100
+		Answer >>> Open Doors: 1, 4, 9, 16, 25, 36, 49, 64, 81, 100
 	 */
 	
-	private final int FIRST = 0;
-	private final static int LAST = 99;
 	private static boolean[] doors;
 	
 	public OneHundredDoors(){
@@ -56,10 +54,7 @@ public class OneHundredDoors {
 				}
 			}		
 		}
-			
-		
-		System.out.println("\n=============\n");
-		
+					
 		//Print the results
 		int index = 1;
 		String output = "";
@@ -69,7 +64,6 @@ public class OneHundredDoors {
 			if(door == true){
 				output += String.format("Door #%d is opened\n", index);
 			}
-			//System.out.println("looping...");
 			index++;
 		}
 			

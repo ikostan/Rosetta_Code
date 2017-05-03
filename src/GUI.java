@@ -1,32 +1,26 @@
 import javax.swing.JFrame;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.net.URI;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
-
-import java.awt.Cursor;
-import java.awt.Desktop;
 import java.awt.Font;
-import java.awt.ScrollPane;
-
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import java.awt.Color;
+import javax.swing.JProgressBar;
+import java.awt.SystemColor;
 
 public class GUI extends JFrame{
 	
 	private JTextField txtNumber;
 	private JTextField textTitle;
 	private JTextArea textAreaDescription;
-	private JLabel lblSource;
+	
+	private JProgressBar progressBar;
 	
 	private static final int FIRST = 0;
 	private static final int LAST = 99;
@@ -35,7 +29,7 @@ public class GUI extends JFrame{
 	//Main method
 	public static void main(String[] args) {
 		
-		Main data = new Main();
+		new Description();
 		new GUI();
 	}
 	
@@ -49,69 +43,30 @@ public class GUI extends JFrame{
 		getContentPane().setLayout(null);
 		
 		setTxtField();
-		createbuttons();
+		createButtons();
 		setLables();		
 		setTextArea();
-		
-		showDescription();
-
-		//JScrollPane scrollPane = new JScrollPane(textAreaDescription);   // JTextArea is placed in a JScrollPane.
-		//JScrollPane scrollPane = new JScrollPane(mainConsole);
-		//scrollPane.setBounds(10,60,780,500);
-		//scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		//this.getContentPane().add(scrollPane);
+		setProgressBar();
+		showDescription(id);
 		
 		this.setLocationRelativeTo(null); //Place in the center of the screen
 		this.setVisible(true);
-
+		
+		//Constructor
 	}
 	
-	private void showDescription(){
+	//Update GUI sceen - show question description, number and progress bar
+	private void showDescription(int id){
+		
+		String[] description = Description.getSubject(id);
+		txtNumber.setText(String.format("%d", id+1));
+		progressBar.setValue(id+1);
+		progressBar.setStringPainted(true);
 		
 		try{
-			txtNumber.setText(String.format("%d", id+1));
-			String[] description = Main.getSubject(id);
+			
 			textTitle.setText(description[1]);
 			textAreaDescription.setText(description[2]);
-			lblSource.setText(description[3]);
-			lblSource.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			
-			lblSource.addMouseListener(new MouseListener(){
-
-					@Override
-					public void mouseClicked(MouseEvent arg0) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void mouseEntered(MouseEvent arg0) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void mousePressed(MouseEvent arg0) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void mouseReleased(MouseEvent arg0) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void mouseExited(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-				}	
-			);
-			
-			//lblSource.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
 		} 
 		catch(Exception ex){
 			
@@ -121,12 +76,13 @@ public class GUI extends JFrame{
 	}
 	
 	//Buttons
-	private void createbuttons(){
+	private void createButtons(){
 		
 		JButton btnNewButton = new JButton("Close");
 		btnNewButton.addActionListener(new ActionListener() {
+			//Event handler
 			public void actionPerformed(ActionEvent e) {
-				
+				//Close application
 				System.exit(0);
 			}
 		});
@@ -135,12 +91,12 @@ public class GUI extends JFrame{
 		
 		JButton btnStart = new JButton("First");
 		btnStart.addActionListener(new ActionListener() {
+			//Event handler
 			public void actionPerformed(ActionEvent arg0) {
 				
 				if(id != FIRST){
 					id = FIRST;
-					txtNumber.setText(String.format("%d", id+1));
-					showDescription();
+					showDescription(id);
 				} else{
 					JOptionPane.showMessageDialog(null, "This is first question alredy.\n", "Information message", JOptionPane.INFORMATION_MESSAGE);
 				}
@@ -151,13 +107,13 @@ public class GUI extends JFrame{
 		
 		JButton button_1 = new JButton("<<< ");
 		button_1.addActionListener(new ActionListener() {
+			//Event handler
 			public void actionPerformed(ActionEvent e) {
 				
 				if(id > FIRST){
 					
 					id--;
-					txtNumber.setText(String.format("%d", id+1));
-					showDescription();
+					showDescription(id);
 				}
 				else{
 					
@@ -170,13 +126,13 @@ public class GUI extends JFrame{
 		
 		JButton btnNext = new JButton(">>>");
 		btnNext.addActionListener(new ActionListener() {
+			//Event handler
 			public void actionPerformed(ActionEvent e) {
 				
 				if(id < LAST){
 					
-					id++;
-					txtNumber.setText(String.format("%d", id+1));
-					showDescription();
+					++id;
+					showDescription(id);
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "This is last question alredy.\n", "Information message", JOptionPane.INFORMATION_MESSAGE);
@@ -188,12 +144,12 @@ public class GUI extends JFrame{
 		
 		JButton btnLast = new JButton("Last");
 		btnLast.addActionListener(new ActionListener() {
+			//Event handler
 			public void actionPerformed(ActionEvent e) {
 				
 				if(id != LAST){
 					id = LAST;
-					txtNumber.setText(String.format("%d", id+1));
-					showDescription();
+					showDescription(id);
 				} else{
 					JOptionPane.showMessageDialog(null, "This is last question alredy.\n", "Information message", JOptionPane.INFORMATION_MESSAGE);
 				}
@@ -201,6 +157,10 @@ public class GUI extends JFrame{
 		});
 		btnLast.setBounds(282, 377, 80, 25);
 		getContentPane().add(btnLast);
+		
+		JButton buttonSolution = new JButton("Solution");
+		buttonSolution.setBounds(372, 377, 80, 25);
+		getContentPane().add(buttonSolution);	
 	}
 	
 	private void setTxtField(){
@@ -228,32 +188,32 @@ public class GUI extends JFrame{
 		JLabel lblTitle = new JLabel("Title:");
 		lblTitle.setBounds(154, 14, 46, 14);
 		getContentPane().add(lblTitle);
-		
-		lblSource = new JLabel("Source");
-		lblSource.setBounds(538, 352, 46, 14);
-		getContentPane().add(lblSource);
 	}
 	
 	private void setTextArea(){
 		
 		textAreaDescription = new JTextArea();
+		textAreaDescription.setForeground(Color.BLACK);
+		textAreaDescription.setBackground(SystemColor.inactiveCaptionBorder);
 		textAreaDescription.setEditable(false);
 		textAreaDescription.setLineWrap(true);
-		textAreaDescription.setFont(new Font("Monospaced", Font.PLAIN, 15));
+		textAreaDescription.setFont(new Font("Monospaced", Font.PLAIN, 16));
 		textAreaDescription.setBounds(10, 53, 574, 288);
 		
 		textAreaDescription.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 		
-		//getContentPane().add(textAreaDescription);
-
 		JScrollPane scroolPane = new JScrollPane(textAreaDescription);
 		scroolPane.setBounds(11,54,574,288);
-		getContentPane().add(scroolPane);		
-		
-		JButton buttonSolution = new JButton("Solution");
-		buttonSolution.setBounds(372, 377, 80, 25);
-		getContentPane().add(buttonSolution);
+		getContentPane().add(scroolPane);			
 	}
+	
+	private void setProgressBar(){
+		
+		progressBar = new JProgressBar();
+		progressBar.setBounds(10, 353, 574, 14);
+		getContentPane().add(progressBar);
+	}
+	
 	
 	//END
 }

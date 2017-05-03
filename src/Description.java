@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Main {
+public class Description {
 	
 	/*
 	 *SOURCE: https://rosettacode.org/wiki/Rosetta_Code
@@ -15,9 +15,7 @@ public class Main {
 	private static ArrayList<String[]> subjectList = new ArrayList<>(); 
 	String[] myString1 = {"hey","hey","hey"}; 
 	
-	
-	
-	public Main() {
+	public Description() {
 		
 		String[] myString1= {
 				"1",
@@ -33,9 +31,16 @@ public class Main {
 				+ "\nOpening only those doors is an optimization that may also be expressed; "
 				+ "However, as should be obvious, this defeats the intent of comparing implementations across programming languages. ", 
 				"<html><a href=\"https://rosettacode.org/wiki/100_doors\">Source</a></html>"}; 
-	    
-		
+	    	
 		subjectList.add(myString1);
+		
+		String[] myString2= {
+				"2",
+				"Task 2",
+				"2", 
+				"<html><a href=\"https://rosettacode.org/wiki/100_doors\">Source</a></html>"}; 
+	    	
+		subjectList.add(myString2);
 
 	}
 
@@ -47,28 +52,5 @@ public class Main {
 	}
 
 	
-	
-	/*	 
-	static int id = 0;
-	static private String header = null;
-	static private String task = null;
-	static private String question = null;
-	 
-	public static int getClassId(){		
-		return  id;
-	}
-	
-	public static String getHeader(){	
-		return header;
-	}
-	
-	public static String getTask(){	
-		return task;
-	}
-
-	public static String getQuestion(){
-		return question;
-	}
-	*/
 	
 }
