@@ -17,16 +17,19 @@ public class Classes {
 		 className.add(myString1);
 		 
 		 //15 Puzzle Game
-		 
+		 PuzzleGame puzzleGame = new PuzzleGame();
+		 String[] myString2 = {puzzleGame.getTaskName(), puzzleGame.getTaskDescription(), puzzleGame.getTaskResult()};
+		 className.add(myString2);
 	}
 	
 	//Return String array object
 	public static String[] getObject(int id){
 		try{
+			//Return object/task
 			return className.get(id);
 		}
 		catch(Exception ex){
-			
+			//Error
 			String[] error = new String[3];
 			error[0] = "N/A";
 			error[1] = "There is nothing here:\n" + ex.getMessage().toString();

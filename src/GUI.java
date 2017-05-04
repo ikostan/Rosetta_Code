@@ -241,7 +241,7 @@ public class GUI extends JFrame{
 		textAreaDescription.setFont(new Font("Monospaced", Font.PLAIN, 16));
 		textAreaDescription.setBounds(10, 53, 574, 288);
 		
-		textAreaDescription.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
+		textAreaDescription.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
 		
 		JScrollPane scroollPane1 = new JScrollPane(textAreaDescription);
 		scroollPane1.setBounds(10,53,574,288);
@@ -255,6 +255,8 @@ public class GUI extends JFrame{
 		textAreaSolution.setLineWrap(true);
 		textAreaSolution.setFont(new Font("Monospaced", Font.PLAIN, 16));
 		textAreaSolution.setBounds(10, 353, 485, 95);
+		textAreaSolution.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+
 		
 		JScrollPane scrollPane2 = new JScrollPane(textAreaSolution);
 		scrollPane2.setBounds(10, 353, 485, 95);
