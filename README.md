@@ -3,3 +3,4 @@ Rosetta Code is a programming chrestomathy site. The idea is to present solution
 
 ## GUI example:
 ![GUI](https://github.com/ikostan/Rosetta_Code/blob/master/screenshot.PNG?raw=true "GUI screenshot")
+![GUI](https://github.com/ikostan/Rosetta_Code/blob/master/screenshot2.PNG?raw=true "GUI screenshot")
