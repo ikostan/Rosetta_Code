@@ -114,6 +114,6 @@ public class OneHundredDoors implements MainInterface{
 		result = newResult;
 	}
 
-
 	
+	//END
 }

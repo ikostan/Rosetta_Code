@@ -10,6 +10,7 @@ public interface MainInterface {
 	public String getTaskResult();
 	
 	void setResult(String newResult);
+
 	
 	//END
 }

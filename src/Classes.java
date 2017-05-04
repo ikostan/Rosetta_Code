@@ -5,6 +5,7 @@ public class Classes {
 
 	//Class field
 	static ArrayList<String[]> className;
+	//static ArrayList<Object> objects;
 	
 	//Constructor
 	public Classes(){
@@ -23,7 +24,7 @@ public class Classes {
 	}
 	
 	//Return String array object
-	public static String[] getObject(int id){
+	public static String[] getStringArrObject(int id){
 		try{
 			//Return object/task
 			return className.get(id);
@@ -37,4 +38,7 @@ public class Classes {
 			return error;
 		}
 	}
+	
+	
+	//END
 }

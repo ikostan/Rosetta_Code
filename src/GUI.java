@@ -20,7 +20,6 @@ public class GUI extends JFrame{
 	private JTextField txtNumber;
 	private JTextField textTitle;
 	private JTextArea textAreaDescription, textAreaSolution;
-	Object solution;
 	
 	String[] description;
 	
@@ -62,7 +61,8 @@ public class GUI extends JFrame{
 	//Update GUI screen - show question description, number and progress bar
 	private void showDescription(int id){
 		
-		description = Classes.getObject(id);
+		description = Classes.getStringArrObject(id);
+		
 		txtNumber.setText(String.format("%d", id+1));
 		progressBar.setValue(id+1);
 		progressBar.setStringPainted(true);
@@ -196,6 +196,8 @@ public class GUI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				
 				textAreaSolution.setText(description[2]);
+				
+				
 			}
 		});
 		buttonSolution.setBounds(504, 372, 80, 54);
