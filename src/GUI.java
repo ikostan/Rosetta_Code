@@ -195,7 +195,21 @@ public class GUI extends JFrame{
 			//RUN button event handler
 			public void actionPerformed(ActionEvent e) {
 				
-				textAreaSolution.setText(description[2]);
+				
+				switch(id){
+				
+				case 0:
+					//OneHundredDoors doors = new OneHundredDoors();
+					//doors.runObject();
+					//doors.getTaskResult();
+					textAreaSolution.setText(description[2]);
+					break;
+				case 1:
+					new PuzzleGame().runObject();
+					textAreaSolution.setText(description[2]);
+					break;
+				
+				}
 				
 				
 			}

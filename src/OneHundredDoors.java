@@ -37,15 +37,16 @@ public class OneHundredDoors implements MainInterface{
 	+ "\nOpening only those doors is an optimization that may also be expressed; "
 	+ "However, as should be obvious, this defeats the intent of comparing implementations across programming languages."; 
 	private String taskLink = "<html><a href=\"https://rosettacode.org/wiki/100_doors\">Source</a></html>";
-	private static String result;
+	
+	private String result = "";
 
 	
 	private static boolean[] doors;
 	
 	public OneHundredDoors(){
-				
+		
 		doors = new boolean[100];
-		for(boolean door : doors){		
+		for(@SuppressWarnings("unused") boolean door : doors){		
 			//There are 100 doors in a row that are all initially closed.
 			door = false;
 		}
@@ -78,12 +79,20 @@ public class OneHundredDoors implements MainInterface{
 			}
 			index++;
 		}
-			
-		//System.out.println(output);
+		
 		setResult(output);
+		//System.out.println(output);
+		//setResult(output);
+		
 	}
 	
-
+	
+	public void runObject(){
+		
+		//new OneHundredDoors();
+	}
+	
+	
 	@Override
 	public String getTaskName(){
 		

@@ -11,6 +11,7 @@ public interface MainInterface {
 	
 	void setResult(String newResult);
 
+	public void runObject();
 	
 	//END
 }
