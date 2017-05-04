@@ -99,11 +99,17 @@ public class GUI extends JFrame{
 			//Event handler
 			public void actionPerformed(ActionEvent arg0) {
 				
+				textAreaSolution.setText("");
+
 				if(id != FIRST){
 					id = FIRST;
 					showDescription(id);
 				} else{
-					JOptionPane.showMessageDialog(null, "This is first question alredy.\n", "Information message", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(
+													null, 
+													"This is first question alredy.\n", 
+													"Information message", 
+													JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -116,6 +122,8 @@ public class GUI extends JFrame{
 			//Event handler
 			public void actionPerformed(ActionEvent e) {
 				
+				textAreaSolution.setText("");
+				
 				if(id > FIRST){
 					
 					id--;
@@ -123,7 +131,11 @@ public class GUI extends JFrame{
 				}
 				else{
 					
-					JOptionPane.showMessageDialog(null, "This is first question alredy.\n", "Information message", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(
+							null, 
+							"This is first question alredy.\n", 
+							"Information message", 
+							JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -136,13 +148,19 @@ public class GUI extends JFrame{
 			//Event handler
 			public void actionPerformed(ActionEvent e) {
 				
+				textAreaSolution.setText("");
+				
 				if(id < LAST){
 					
 					++id;
 					showDescription(id);
 				}
 				else{
-					JOptionPane.showMessageDialog(null, "This is last question alredy.\n", "Information message", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(
+													null, 
+													"This is last question alredy.\n", 
+													"Information message", 
+													JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -155,11 +173,17 @@ public class GUI extends JFrame{
 			//Event handler
 			public void actionPerformed(ActionEvent e) {
 				
+				textAreaSolution.setText("");
+
 				if(id != LAST){
 					id = LAST;
 					showDescription(id);
 				} else{
-					JOptionPane.showMessageDialog(null, "This is last question alredy.\n", "Information message", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(
+													null, 
+													"This is last question alredy.\n", 
+													"Information message", 
+													JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -168,7 +192,7 @@ public class GUI extends JFrame{
 		
 		JButton buttonSolution = new JButton("RUN");
 		buttonSolution.addActionListener(new ActionListener() {
-			
+			//RUN button event handler
 			public void actionPerformed(ActionEvent e) {
 				
 				textAreaSolution.setText(description[2]);

@@ -83,30 +83,36 @@ public class OneHundredDoors implements MainInterface{
 	}
 	
 
-	
+	@Override
 	public String getTaskName(){
 		
 		return this.taskName;
 	}
 	
+	@Override
 	public String getTaskDescription(){
 		
 		return this.taskDescription;
 	}
 
+	@Override
 	public String getTaskLink(){
 	
 		return this.taskLink;
 	}
 	
+	@Override
 	public String getTaskResult(){
 		
 		return this.result;
 	}
 	
-	public static void setResult(String newResult){
+	@Override
+	public void setResult(String newResult){
 		
 		result = newResult;
 	}
+
+
 	
 }

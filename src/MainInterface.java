@@ -1,33 +1,15 @@
 
 public interface MainInterface {
+	
+	public String getTaskName();
+	
+	public String getTaskDescription();
 
-	String taskName = null;
-	String taskDescription = null;
-	String taskLink = null;
-	String result = null;
+	public String getTaskLink();
 	
-	public static String getTaskName(){
-		
-		return taskName;
-	}
+	public String getTaskResult();
 	
-	public static String getTaskDescription(){
-		
-		return taskDescription;
-	}
-
-	public static String getTaskLink(){
+	void setResult(String newResult);
 	
-		return taskLink;
-	}
-	
-	public static String getTaskResult(){
-		
-		return result;
-	}
-	
-	public static void setResult(String newResult){
-		
-	}
-	
+	//END
 }
