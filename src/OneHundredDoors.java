@@ -21,6 +21,7 @@ public class OneHundredDoors implements MainInterface{
 		
 			  
 		Answer >>> Open Doors: 1, 4, 9, 16, 25, 36, 49, 64, 81, 100
+		SOURCE: https://rosettacode.org/wiki/100_doors
 	 */
 	
 	
