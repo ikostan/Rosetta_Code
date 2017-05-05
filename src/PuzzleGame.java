@@ -1,7 +1,10 @@
 //import java.util.Arrays;
+import java.util.Arrays;
 import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 //import javax.swing.JOptionPane;
 import java.awt.SystemColor;
 import java.awt.Font;
@@ -62,11 +65,13 @@ public class PuzzleGame extends JFrame implements MainInterface {
 
 	private static Random rand;
 
+	private static int[][][] initLocations;
 	private static int[][][] locations;
+	
 	private JButton button_0, button_1, button_2, button_3, 
 					button_4, button_5, button_6, button_7, 
 					button_8, button_9, button_10, button_11, 
-					button_12, button_13, button_14;
+					button_12, button_13, button_14, button_15;
 	
 	private JButton[] buttonsArray;
 	private int[] tilesArray;
@@ -90,7 +95,22 @@ public class PuzzleGame extends JFrame implements MainInterface {
 		//puzzle.runObject();
 	}
 
+	
+	private void getSlidesLocation(){
+		
+		
+	}
+	
+	//Create initial locations array
 	private static void setLocationsArr(){
+		
+		initLocations = new int[][][] {
+			// column 0	  //column 1  //column 2  //column 3
+			{ { x0, y0 }, { x1, y0 }, { x2, y0 }, { x3, y0 } }, //row 0
+			{ { x0, y1 }, { x1, y1 }, { x2, y1 }, { x3, y1 } }, //row 1
+			{ { x0, y2 }, { x1, y2 }, { x2, y2 }, { x3, y2 } }, //row 2
+			{ { x0, y3 }, { x1, y3 }, { x2, y3 }, { x3, y3 } }  //row 3
+		};
 		
 		locations = new int[][][] {
 			// column 0	  //column 1  //column 2  //column 3
@@ -99,8 +119,19 @@ public class PuzzleGame extends JFrame implements MainInterface {
 			{ { x0, y2 }, { x1, y2 }, { x2, y2 }, { x3, y2 } }, //row 2
 			{ { x0, y3 }, { x1, y3 }, { x2, y3 }, { x3, y3 } }  //row 3
 		};
-		
 	}
+	
+	//Check if user wins
+	private static boolean isWon(){	
+		
+		if(Arrays.deepEquals(initLocations, locations)){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
 	
 	//Swapping array values
 	private static int[][][] randTiles(int[][][] array){
@@ -110,7 +141,7 @@ public class PuzzleGame extends JFrame implements MainInterface {
 		int row, col;
 		rand = new Random();
 
-		for(int i = 0; i < 32; i++){
+		for(int i = 0; i < 37; i++){
 				
 			row = rand.nextInt(4);
 			col = rand.nextInt(4);
@@ -162,10 +193,6 @@ public class PuzzleGame extends JFrame implements MainInterface {
 
 		setLocationsArr();
 		locations = randTiles(locations);
-		//PuzzleGame puzzle = new PuzzleGame();
-		//puzzle.runObject();
-		
-		// new PuzzleGame();
 
 		tilesArray = new int[numTiles - 1];
 		int index = 1;
@@ -181,12 +208,12 @@ public class PuzzleGame extends JFrame implements MainInterface {
 		buttonsArray = new JButton[] {button_0, button_1, button_2, button_3, 
 									  button_4, button_5, button_6, button_7, 
 									  button_8, button_9, button_10, button_11, 
-									  button_12, button_13, button_14 };
+									  button_12, button_13, button_14, button_15};
 
 		this.setTitle("15 Puzzle Game");
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.getContentPane().setLayout(null);
-		this.setAlwaysOnTop(true);
+		this.setAlwaysOnTop(false);
 		this.setSize(totalWidth, totalWidth + (padding * 2));
 		this.setResizable(false);
 
@@ -228,6 +255,15 @@ public class PuzzleGame extends JFrame implements MainInterface {
 						public void actionPerformed(ActionEvent arg0) {											
 							//Returns button label
 							System.out.println(arg0.getActionCommand());
+							
+							if(isWon()){
+								//User wins
+								JOptionPane.showMessageDialog(null,
+									    "Congratulations, you won :-)",
+									    "Congratilations",
+									    JOptionPane.INFORMATION_MESSAGE);
+							}
+																				
 						}
 					});
 
@@ -243,7 +279,8 @@ public class PuzzleGame extends JFrame implements MainInterface {
 					 */
 
 					getContentPane().add(buttonsArray[i]);
-				} else {
+				} 
+				else {
 					/*
 					 * //Last (empty) slide buttonsArray[i] = new JButton("");
 					 * buttonsArray[i].setForeground(Color.RED);
