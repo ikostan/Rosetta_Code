@@ -14,7 +14,7 @@ public class Classes {
 		 
 		 //Task 100 doors
 		 OneHundredDoors doors = new OneHundredDoors();
-		 String[] myString1 = {doors.getTaskName(), doors.getTaskDescription(), doors.getTaskResult()};
+		String[] myString1 = { doors.getTaskName(), doors.getTaskDescription(), doors.getTaskResult()};
 		 className.add(myString1);
 		 
 		 //15 Puzzle Game
