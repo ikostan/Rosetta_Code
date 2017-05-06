@@ -1,17 +1,12 @@
-//import java.util.Arrays;
-import java.util.Arrays;
 import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
-//import javax.swing.JOptionPane;
 import java.awt.SystemColor;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.ActionListener;
-//import java.awt.event.MouseAdapter;
-//import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 public class PuzzleGame extends JFrame implements MainInterface {
@@ -46,6 +41,8 @@ public class PuzzleGame extends JFrame implements MainInterface {
 	private String taskLink = "<html><a href=\"https://rosettacode.org/wiki/15_Puzzle_Game\">Source</a></html>";
 	private static String result = "N/A";
 
+	static JFrame main;
+	
 	private final static int totalWidth = 440;
 	private static final int ROWS = 4;
 	private static final int COLS = 4;
@@ -65,19 +62,14 @@ public class PuzzleGame extends JFrame implements MainInterface {
 
 	private static Random rand;
 
-	private static int[][][] initLocations;
 	private static int[][][] locations;
-	private static JButton[][] slidesLocation;
 	private static JButton[] buttonsArray;
-	private int[] tilesArray;
 	
 	private JButton button_0, button_1, button_2, button_3, 
 					button_4, button_5, button_6, button_7, 
 					button_8, button_9, button_10, button_11, 
-					button_12, button_13, button_14, button_15;
-	
-	
-	
+					button_12, button_13, button_14, button_15;	
+		
 	
 	// Main method
 	public static void main(String[] args) {
@@ -86,8 +78,6 @@ public class PuzzleGame extends JFrame implements MainInterface {
 		locations = randTiles(locations);
 		PuzzleGame puzzle = new PuzzleGame();
 		puzzle.runObject();
-		getSlidesLocation();
-
 	}
 
 	// Constructor
@@ -95,45 +85,50 @@ public class PuzzleGame extends JFrame implements MainInterface {
 		
 	}
 
-	
-	private static void getSlidesLocation(){		
+	//Swap between buttons
+	private static void swapTiles(int x, int y, String label){
 		
-		slidesLocation = new JButton [ROWS][COLS];
+		// slidesLocation | button_15 | buttonsArray | padding | slideSize
+		JButton temporary = new JButton();
 		
-		for(int row = 0; row< ROWS; row++){
-			
+		//TODO swap tiles
+		for(int row = 0; row < ROWS; row++){
+			 	
 			for(int col = 0; col < COLS; col++){
 				
-				for(JButton button : buttonsArray){
+				if(locations[row][col][0] == x && locations[row][col][1] == y){
 					
-					if(button.getX() == (padding + slideSize * col) && button.getY() == (padding + slideSize * row)){
-						
-						slidesLocation[col][row] = button;
-						System.out.print(String.format("%s \t", slidesLocation[col][row].getText())); //DEBUG ONLY
-					}
-				}
+					int tempX = locations[row][col][0];
+					int tempY = locations[row][col][1];
+					
+					locations[row][col][0] = buttonsArray[buttonsArray.length - 1].getX();
+					locations[row][col][1] = buttonsArray[buttonsArray.length - 1].getY();
+
+					
+					
+					buttonsArray[buttonsArray.length - 1].setBounds(tempX, tempY, slideSize, slideSize);
+					//System.out.println(String.format("\nlabel: %s == button: %s \n", label, slidesLocation[row][col].getText()));
+					
+				}				
 			}
-			System.out.println(" "); //DEBUG ONLY
-		}
+		 }
 		
-		slidesLocation[COLS - 1][ROWS - 1] = buttonsArray[buttonsArray.length - 1]; //EMPTY SLOT
-		System.out.print(String.format(
-									"%s \t X: %3d Y: %3d", 
-									slidesLocation[COLS - 1][ROWS - 1].getText(), 
-									slidesLocation[COLS - 1][ROWS - 1].getX(), 
-									slidesLocation[COLS - 1][ROWS - 1].getY())); //DEBUG ONLY
-	}
+		//getSlidesLocation();						
+		
+		//TODO
+		/*
+		if(isWon()){
+			//User wins
+			JOptionPane.showMessageDialog(null,
+				    "Congratulations, you won :-)",
+				    "Congratilations",
+				    JOptionPane.INFORMATION_MESSAGE);
+		}
+		*/							
+	 } 
 	
 	//Create initial locations array
 	private static void setLocationsArr(){
-		
-		initLocations = new int[][][] {
-			// column 0	  //column 1  //column 2  //column 3
-			{ { x0, y0 }, { x1, y0 }, { x2, y0 }, { x3, y0 } }, //row 0
-			{ { x0, y1 }, { x1, y1 }, { x2, y1 }, { x3, y1 } }, //row 1
-			{ { x0, y2 }, { x1, y2 }, { x2, y2 }, { x3, y2 } }, //row 2
-			{ { x0, y3 }, { x1, y3 }, { x2, y3 }, { x3, y3 } }  //row 3
-		};
 		
 		locations = new int[][][] {
 			// column 0	  //column 1  //column 2  //column 3
@@ -145,16 +140,20 @@ public class PuzzleGame extends JFrame implements MainInterface {
 	}
 	
 	//Check if user wins
+	/*
 	private static boolean isWon(){	
 		
-		if(Arrays.deepEquals(initLocations, locations)){
+		//TODO is Won
+		
+		if(Arrays.deepEquals()){
 			return true;
 		}
 		else{
 			return false;
 		}
+		
 	}
-	
+	*/
 	
 	//Swapping array values
 	private static int[][][] randTiles(int[][][] array){
@@ -202,48 +201,42 @@ public class PuzzleGame extends JFrame implements MainInterface {
 	}
 	
 	//Test is value exist in array
-	private static boolean arrayContains(int[] array, int value){
+	private static JButton arrayContains(String value){
 		
-		for(int i = 0; i< array.length; i++){			
-			if(array[i] == value){				
-				return true;
+		JButton button = null;
+		
+		for(int i = 0; i< buttonsArray.length; i++){			
+			if(buttonsArray[i].getText() == value){				
+				button =  buttonsArray[i];
 			}
-		}		
-		return false;
+		}
+		
+		return button;		
 	}
 	
 	// Creates a new object
 	public void runObject() {
 
+        main = new JFrame();
 		setLocationsArr();
 		locations = randTiles(locations);
-
-		tilesArray = new int[numTiles - 1];
-		int index = 1;
-
-		for (@SuppressWarnings("unused") int tile : tilesArray) {
-
-			tile = index;
-			//System.out.println(index); //DEBUG ONLY
-			index++;
-		}
 
 		buttonsArray = new JButton[] {button_0, button_1, button_2, button_3, 
 									  button_4, button_5, button_6, button_7, 
 									  button_8, button_9, button_10, button_11, 
 									  button_12, button_13, button_14, button_15};
 
-		this.setTitle("15 Puzzle Game");
-		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.getContentPane().setLayout(null);
-		this.setAlwaysOnTop(false);
-		this.setSize(totalWidth, totalWidth + (padding * 2));
-		this.setResizable(false);
+		main.setTitle("15 Puzzle Game");
+		main.setDefaultCloseOperation(main.HIDE_ON_CLOSE);
+		main.getContentPane().setLayout(null);
+		main.setAlwaysOnTop(false);
+		main.setSize(totalWidth, totalWidth + (padding * 2));
+		main.setResizable(false);
 
 		setButtons();
 
-		this.setLocationRelativeTo(null);
-		this.setVisible(true);
+		main.setLocationRelativeTo(null);
+		main.setVisible(true);
 	}
 
 	// Set button location
@@ -252,6 +245,25 @@ public class PuzzleGame extends JFrame implements MainInterface {
 		button.setBounds(locations[row][col][0], locations[row][col][1], slideSize, slideSize);
 	}
 
+	
+	// Refresh tiles/buttons
+	private void refreshButtons() {
+
+		//TODO refresh Buttons
+		int i = 0;
+
+		for (int row = 0; row < ROWS; row++) {
+
+			for (int col = 0; col < COLS; col++) {
+
+				setButtonBounds(row, col, buttonsArray[i], locations);						
+				main.getContentPane().add(buttonsArray[i]);		
+				i++; // Total index
+			}
+		}
+	}
+	
+	
 	// Create tiles/buttons
 	private void setButtons() {
 
@@ -271,40 +283,9 @@ public class PuzzleGame extends JFrame implements MainInterface {
 					buttonsArray[i].setFont(new Font("Times New Roman", Font.BOLD, 40));
 					buttonsArray[i].setBackground(SystemColor.activeCaption);
 					setButtonBounds(row, col, buttonsArray[i], locations);
-
-					buttonsArray[i].addActionListener(new ActionListener() {					
-						
-						@Override
-						public void actionPerformed(ActionEvent arg0) {											
-							
-							//TODO action click on button action listener
-							
-							//Returns button label
-							System.out.println(arg0.getActionCommand());
-							
-							if(isWon()){
-								//User wins
-								JOptionPane.showMessageDialog(null,
-									    "Congratulations, you won :-)",
-									    "Congratilations",
-									    JOptionPane.INFORMATION_MESSAGE);
-							}
-																				
-						}
-					});
-
-					/*
-					 * buttonsArray[i].addMouseListener(new MouseAdapter(){
-					 * //Mouse listener event handler public void
-					 * mousePressed(MouseEvent me) {
-					 * 
-					 * //System.out.println(me.getLocationOnScreen());
-					 * //System.out.println(me); //Object button =
-					 * me.getSource(); //System.out.println(button.toString());
-					 * } });
-					 */
-
-					getContentPane().add(buttonsArray[i]);
+					buttonsArray[i].addMouseListener(new MouseListener());
+					main.getContentPane().add(buttonsArray[i]);
+					//main.getContentPane().add(buttonsArray[i]);
 				} 
 				else {
 					
@@ -318,12 +299,24 @@ public class PuzzleGame extends JFrame implements MainInterface {
 			}
 		}
 
+		
 		// Restart button
 		JButton btnRestart = new JButton("Restart the game");
 		btnRestart.addActionListener(new ActionListener() {
 			// Restart the game event handler
 			public void actionPerformed(ActionEvent arg0) {
+			
+				//TODO Restart button
 
+				for(JButton button : buttonsArray){
+					
+					main.getContentPane().remove(button);
+				}
+				
+				main.repaint();
+				locations = randTiles(locations);
+				setButtons();
+				main.repaint();				
 			}
 		});
 		
@@ -336,10 +329,34 @@ public class PuzzleGame extends JFrame implements MainInterface {
 				(slideSize * (COLS / 2)),
 				//Height
 				padding);
-		getContentPane().add(btnRestart);
+		main.getContentPane().add(btnRestart);
 
 	}
 
+	
+	private class MouseListener extends MouseAdapter{		
+		
+		 //Mouse listener event handler
+		 public void mousePressed(MouseEvent me) {
+		 
+			 //TODO action click on button event						 
+			 //JButton button = (JButton)me.getComponent();
+			 
+			 
+			 main.remove((JButton)me.getComponent());
+			 main.repaint();
+			 
+			 //String label = button.getText();
+			 //int x = button.getX();
+			 //int y = button.getY();
+			 
+			 //System.out.println(String.format("\nButton: %s X: %d Y: %d", label, x, y)); //DEBUG ONLY
+			 
+			 //swapTiles(x, y, label);
+		 }		 		 
+	}
+	
+	
 	@Override
 	public String getTaskName() {
 		return taskName;
@@ -364,6 +381,6 @@ public class PuzzleGame extends JFrame implements MainInterface {
 	public void setResult(String newResult) {
 		// There is nothing to implement
 	}
-
+	
 	// END
 }

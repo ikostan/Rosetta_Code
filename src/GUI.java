@@ -16,6 +16,8 @@ import java.awt.SystemColor;
 
 public class GUI extends JFrame {
 
+	private JFrame frame;
+	
 	private static final long serialVersionUID = 1L;
 	private JTextField txtNumber;
 	private JTextField textTitle;
@@ -39,11 +41,13 @@ public class GUI extends JFrame {
 	// Constructor
 	public GUI() {
 
-		setTitle("Rosetta Code");
-		this.setResizable(false);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(600, 550);
-		getContentPane().setLayout(null);
+		frame = new JFrame();
+		
+		frame.setTitle("Rosetta Code");
+		frame.setResizable(false);
+		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+		frame.setSize(600, 550);
+		frame.getContentPane().setLayout(null);
 
 		setTxtField();
 		createButtons();
@@ -52,8 +56,8 @@ public class GUI extends JFrame {
 		setProgressBar();
 		showDescription(id);
 
-		this.setLocationRelativeTo(null); // Place in the center of the screen
-		this.setVisible(true);
+		frame.setLocationRelativeTo(null); // Place in the center of the screen
+		frame.setVisible(true);
 
 		// Constructor
 	}
@@ -91,7 +95,7 @@ public class GUI extends JFrame {
 		});
 
 		btnNewButton.setBounds(504, 485, 80, 25);
-		getContentPane().add(btnNewButton);
+		frame.getContentPane().add(btnNewButton);
 
 		JButton btnStart = new JButton("First");
 		btnStart.addActionListener(new ActionListener() {
@@ -111,7 +115,7 @@ public class GUI extends JFrame {
 		});
 
 		btnStart.setBounds(10, 485, 80, 25);
-		getContentPane().add(btnStart);
+		frame.getContentPane().add(btnStart);
 
 		JButton button_1 = new JButton("<<< ");
 		button_1.addActionListener(new ActionListener() {
@@ -133,7 +137,7 @@ public class GUI extends JFrame {
 		});
 
 		button_1.setBounds(95, 485, 80, 25);
-		getContentPane().add(button_1);
+		frame.getContentPane().add(button_1);
 
 		JButton btnNext = new JButton(">>>");
 		btnNext.addActionListener(new ActionListener() {
@@ -154,7 +158,7 @@ public class GUI extends JFrame {
 		});
 
 		btnNext.setBounds(180, 485, 80, 25);
-		getContentPane().add(btnNext);
+		frame.getContentPane().add(btnNext);
 
 		JButton btnLast = new JButton("Last");
 		btnLast.addActionListener(new ActionListener() {
@@ -173,7 +177,7 @@ public class GUI extends JFrame {
 			}
 		});
 		btnLast.setBounds(265, 485, 80, 25);
-		getContentPane().add(btnLast);
+		frame.getContentPane().add(btnLast);
 
 		JButton buttonSolution = new JButton("RUN");
 		buttonSolution.addActionListener(new ActionListener() {
@@ -198,7 +202,7 @@ public class GUI extends JFrame {
 		});
 
 		buttonSolution.setBounds(504, 372, 80, 54);
-		getContentPane().add(buttonSolution);
+		frame.getContentPane().add(buttonSolution);
 	}
 
 	private void setTxtField() {
@@ -206,14 +210,14 @@ public class GUI extends JFrame {
 		txtNumber = new JTextField();
 		txtNumber.setEditable(false);
 		txtNumber.setBounds(95, 11, 46, 20);
-		getContentPane().add(txtNumber);
+		frame.getContentPane().add(txtNumber);
 		txtNumber.setColumns(10);
 
 		textTitle = new JTextField();
 		textTitle.setEditable(false);
 		textTitle.setColumns(10);
 		textTitle.setBounds(192, 11, 392, 20);
-		getContentPane().add(textTitle);
+		frame.getContentPane().add(textTitle);
 	}
 
 	private void setLables() {
@@ -221,11 +225,11 @@ public class GUI extends JFrame {
 		JLabel lblNumber = new JLabel("Question #:");
 		lblNumber.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNumber.setBounds(0, 14, 81, 14);
-		getContentPane().add(lblNumber);
+		frame.getContentPane().add(lblNumber);
 
 		JLabel lblTitle = new JLabel("Title:");
 		lblTitle.setBounds(154, 14, 46, 14);
-		getContentPane().add(lblTitle);
+		frame.getContentPane().add(lblTitle);
 	}
 
 	// Solution and description areas
@@ -244,7 +248,7 @@ public class GUI extends JFrame {
 
 		JScrollPane scroollPane1 = new JScrollPane(textAreaDescription);
 		scroollPane1.setBounds(10, 53, 574, 288);
-		getContentPane().add(scroollPane1);
+		frame.getContentPane().add(scroollPane1);
 
 		// Solution
 		textAreaSolution = new JTextArea();
@@ -258,14 +262,14 @@ public class GUI extends JFrame {
 
 		JScrollPane scrollPane2 = new JScrollPane(textAreaSolution);
 		scrollPane2.setBounds(10, 353, 485, 95);
-		getContentPane().add(scrollPane2);
+		frame.getContentPane().add(scrollPane2);
 	}
 
 	private void setProgressBar() {
 
 		progressBar = new JProgressBar();
 		progressBar.setBounds(10, 460, 574, 14);
-		getContentPane().add(progressBar);
+		frame.getContentPane().add(progressBar);
 	}
 
 	// END
