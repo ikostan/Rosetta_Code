@@ -57,7 +57,7 @@ public class PuzzleGame extends JFrame implements MainInterface {
 	private static int x1 = padding + slideSize;
 	private static int x2 = padding + slideSize * 2;
 	private static int x3 = padding + slideSize * 3;
-
+	
 	private static int y0 = padding;
 	private static int y1 = padding + slideSize;
 	private static int y2 = padding + slideSize * 2;
@@ -67,38 +67,61 @@ public class PuzzleGame extends JFrame implements MainInterface {
 
 	private static int[][][] initLocations;
 	private static int[][][] locations;
+	private static JButton[][] slidesLocation;
+	private static JButton[] buttonsArray;
+	private int[] tilesArray;
 	
 	private JButton button_0, button_1, button_2, button_3, 
 					button_4, button_5, button_6, button_7, 
 					button_8, button_9, button_10, button_11, 
 					button_12, button_13, button_14, button_15;
 	
-	private JButton[] buttonsArray;
-	private int[] tilesArray;
+	
 	
 	
 	// Main method
 	public static void main(String[] args) {
 	
-		//setLocationsArr();
-		//locations = randTiles(locations);
-		//PuzzleGame puzzle = new PuzzleGame();
-		//puzzle.runObject();
+		setLocationsArr();
+		locations = randTiles(locations);
+		PuzzleGame puzzle = new PuzzleGame();
+		puzzle.runObject();
+		getSlidesLocation();
+
 	}
 
 	// Constructor
 	public PuzzleGame() {
 		
-		//setLocationsArr();
-		//locations = randTiles(locations);
-		//PuzzleGame puzzle = new PuzzleGame();
-		//puzzle.runObject();
 	}
 
 	
-	private void getSlidesLocation(){
+	private static void getSlidesLocation(){		
 		
+		slidesLocation = new JButton [ROWS][COLS];
 		
+		for(int row = 0; row< ROWS; row++){
+			
+			for(int col = 0; col < COLS; col++){
+				
+				for(JButton button : buttonsArray){
+					
+					if(button.getX() == (padding + slideSize * col) && button.getY() == (padding + slideSize * row)){
+						
+						slidesLocation[col][row] = button;
+						System.out.print(String.format("%s \t", slidesLocation[col][row].getText())); //DEBUG ONLY
+					}
+				}
+			}
+			System.out.println(" "); //DEBUG ONLY
+		}
+		
+		slidesLocation[COLS - 1][ROWS - 1] = buttonsArray[buttonsArray.length - 1]; //EMPTY SLOT
+		System.out.print(String.format(
+									"%s \t X: %3d Y: %3d", 
+									slidesLocation[COLS - 1][ROWS - 1].getText(), 
+									slidesLocation[COLS - 1][ROWS - 1].getX(), 
+									slidesLocation[COLS - 1][ROWS - 1].getY())); //DEBUG ONLY
 	}
 	
 	//Create initial locations array
@@ -135,7 +158,7 @@ public class PuzzleGame extends JFrame implements MainInterface {
 	
 	//Swapping array values
 	private static int[][][] randTiles(int[][][] array){
-		
+
 		int[] temporaryArr = new int[2];
 		
 		int row, col;
@@ -155,7 +178,8 @@ public class PuzzleGame extends JFrame implements MainInterface {
 					if(col > 0){
 						array[row][col] = array[row - 1][col - 1];
 						array[row - 1][col - 1] = temporaryArr;	
-					} else{
+					} 
+					else{
 						array[row][col] = array[row-1][col + 1];
 						array[row-1][col + 1] = temporaryArr;	
 					}
@@ -164,14 +188,14 @@ public class PuzzleGame extends JFrame implements MainInterface {
 					if(col < 2){
 						array[row][col] = array[row + 1][col + 1];
 						array[row + 1][col + 1] = temporaryArr;	
-					} else{
+					} 
+					else{
 						array[row][col] = array[row + 1][col - 1];
 						array[row + 1][col - 1] = temporaryArr;	
 					}
 				}								
 			}
 		}
-
 	
 		return array;
 		//randTiles
@@ -204,7 +228,6 @@ public class PuzzleGame extends JFrame implements MainInterface {
 			index++;
 		}
 
-		// buttonsArray = new JButton[ROWS * COLS];
 		buttonsArray = new JButton[] {button_0, button_1, button_2, button_3, 
 									  button_4, button_5, button_6, button_7, 
 									  button_8, button_9, button_10, button_11, 
@@ -249,10 +272,13 @@ public class PuzzleGame extends JFrame implements MainInterface {
 					buttonsArray[i].setBackground(SystemColor.activeCaption);
 					setButtonBounds(row, col, buttonsArray[i], locations);
 
-					buttonsArray[i].addActionListener(new ActionListener() {
-
+					buttonsArray[i].addActionListener(new ActionListener() {					
+						
 						@Override
 						public void actionPerformed(ActionEvent arg0) {											
+							
+							//TODO action click on button action listener
+							
 							//Returns button label
 							System.out.println(arg0.getActionCommand());
 							
@@ -281,16 +307,11 @@ public class PuzzleGame extends JFrame implements MainInterface {
 					getContentPane().add(buttonsArray[i]);
 				} 
 				else {
-					/*
-					 * //Last (empty) slide buttonsArray[i] = new JButton("");
-					 * buttonsArray[i].setForeground(Color.RED);
-					 * buttonsArray[i].setFont(new Font("Times New Roman",
-					 * Font.BOLD, 40));
-					 * buttonsArray[i].setBackground(SystemColor.
-					 * controlHighlight); buttonsArray[i].setBounds((padding +
-					 * slideSize * 3), (padding + slideSize * 3), slideSize,
-					 * slideSize); getContentPane().add(buttonsArray[i]);
-					 */
+					
+					//Last (empty) slide/tile
+					label = String.format("%d", (i + 1));
+					buttonsArray[i] = new JButton(label);
+					buttonsArray[i].setBounds((padding + slideSize * 3), (padding + slideSize * 3), slideSize, slideSize);
 				}
 
 				i++; // Total index
