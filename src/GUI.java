@@ -45,7 +45,7 @@ public class GUI extends JFrame {
 		
 		frame.setTitle("Rosetta Code");
 		frame.setResizable(false);
-		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(600, 550);
 		frame.getContentPane().setLayout(null);
 

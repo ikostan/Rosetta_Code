@@ -1,6 +1,8 @@
 import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+
 import java.awt.SystemColor;
 import java.awt.Font;
 import java.awt.Color;
@@ -85,46 +87,58 @@ public class PuzzleGame extends JFrame implements MainInterface {
 		
 	}
 
+	//Swap buttons
+	private static void swapBtn(JButton button){
+		
+		main.getContentPane().remove(button);
+		main.getContentPane().remove(buttonsArray[buttonsArray .length - 1]);
+		main.getContentPane().repaint();
+		
+		int tempX = button.getX();
+		int tempY = button.getY();
+		
+		button.setLocation(buttonsArray[buttonsArray .length - 1].getX(), buttonsArray[buttonsArray .length - 1].getY());
+		buttonsArray[buttonsArray .length - 1].setLocation(tempX, tempY);
+		
+		main.getContentPane().add(button);
+		main.getContentPane().repaint();
+	}
+	
 	//Swap between buttons
-	private static void swapTiles(int x, int y, String label){
+	private static void swapTiles(JButton button){
 		
-		// slidesLocation | button_15 | buttonsArray | padding | slideSize
-		JButton temporary = new JButton();
+		// slidesLocation | button_15 | buttonsArray | padding | slideSize	
+		//DEBUG ONLY
+		System.out.println(String.format(""
+				+ "Empty x: %3d\tButton x:%3d\nEmpty y: %3d\tButton y:%3d\n", 
+				buttonsArray[buttonsArray .length - 1].getX(), 
+				button.getX(),
+				buttonsArray[buttonsArray .length - 1].getY(), 
+				button.getY()));
 		
-		//TODO swap tiles
-		for(int row = 0; row < ROWS; row++){
-			 	
-			for(int col = 0; col < COLS; col++){
-				
-				if(locations[row][col][0] == x && locations[row][col][1] == y){
-					
-					int tempX = locations[row][col][0];
-					int tempY = locations[row][col][1];
-					
-					locations[row][col][0] = buttonsArray[buttonsArray.length - 1].getX();
-					locations[row][col][1] = buttonsArray[buttonsArray.length - 1].getY();
-
-					
-					
-					buttonsArray[buttonsArray.length - 1].setBounds(tempX, tempY, slideSize, slideSize);
-					//System.out.println(String.format("\nlabel: %s == button: %s \n", label, slidesLocation[row][col].getText()));
-					
-				}				
-			}
-		 }
 		
-		//getSlidesLocation();						
-		
-		//TODO
-		/*
-		if(isWon()){
-			//User wins
-			JOptionPane.showMessageDialog(null,
-				    "Congratulations, you won :-)",
-				    "Congratilations",
-				    JOptionPane.INFORMATION_MESSAGE);
+		if((buttonsArray[buttonsArray .length - 1].getX() == button.getX()) && 
+				(buttonsArray[buttonsArray .length - 1].getY() == button.getY() + slideSize)){
+			
+			swapBtn(button);			
 		}
-		*/							
+		else if((buttonsArray[buttonsArray .length - 1].getY() == button.getY()) &&
+				(buttonsArray[buttonsArray .length - 1].getX() == button.getX() + slideSize)){
+			
+			swapBtn(button);
+		}
+		else if((buttonsArray[buttonsArray .length - 1].getY() == button.getY()) && 
+				(buttonsArray[buttonsArray .length - 1].getX() == button.getX() - slideSize)){
+			
+			swapBtn(button);
+		}
+		else if((buttonsArray[buttonsArray .length - 1].getX() == button.getX()) && 
+				(buttonsArray[buttonsArray .length - 1].getY() == button.getY() - slideSize)){
+			
+			swapBtn(button);
+		}
+		
+		//swapTiles
 	 } 
 	
 	//Create initial locations array
@@ -147,6 +161,10 @@ public class PuzzleGame extends JFrame implements MainInterface {
 		
 		if(Arrays.deepEquals()){
 			return true;
+			JOptionPane.showMessageDialog(null,
+				    "Congratulations, you won :-)",
+				    "Congratulations",
+				    JOptionPane.INFORMATION_MESSAGE);
 		}
 		else{
 			return false;
@@ -200,20 +218,6 @@ public class PuzzleGame extends JFrame implements MainInterface {
 		//randTiles
 	}
 	
-	//Test is value exist in array
-	private static JButton arrayContains(String value){
-		
-		JButton button = null;
-		
-		for(int i = 0; i< buttonsArray.length; i++){			
-			if(buttonsArray[i].getText() == value){				
-				button =  buttonsArray[i];
-			}
-		}
-		
-		return button;		
-	}
-	
 	// Creates a new object
 	public void runObject() {
 
@@ -227,7 +231,7 @@ public class PuzzleGame extends JFrame implements MainInterface {
 									  button_12, button_13, button_14, button_15};
 
 		main.setTitle("15 Puzzle Game");
-		main.setDefaultCloseOperation(main.HIDE_ON_CLOSE);
+		main.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		main.getContentPane().setLayout(null);
 		main.setAlwaysOnTop(false);
 		main.setSize(totalWidth, totalWidth + (padding * 2));
@@ -244,25 +248,6 @@ public class PuzzleGame extends JFrame implements MainInterface {
 									// X 					//Y 		//Height 	//Width
 		button.setBounds(locations[row][col][0], locations[row][col][1], slideSize, slideSize);
 	}
-
-	
-	// Refresh tiles/buttons
-	private void refreshButtons() {
-
-		//TODO refresh Buttons
-		int i = 0;
-
-		for (int row = 0; row < ROWS; row++) {
-
-			for (int col = 0; col < COLS; col++) {
-
-				setButtonBounds(row, col, buttonsArray[i], locations);						
-				main.getContentPane().add(buttonsArray[i]);		
-				i++; // Total index
-			}
-		}
-	}
-	
 	
 	// Create tiles/buttons
 	private void setButtons() {
@@ -340,19 +325,10 @@ public class PuzzleGame extends JFrame implements MainInterface {
 		 public void mousePressed(MouseEvent me) {
 		 
 			 //TODO action click on button event						 
-			 //JButton button = (JButton)me.getComponent();
+			 JButton button = (JButton)me.getComponent();
 			 
-			 
-			 main.remove((JButton)me.getComponent());
-			 main.repaint();
-			 
-			 //String label = button.getText();
-			 //int x = button.getX();
-			 //int y = button.getY();
-			 
-			 //System.out.println(String.format("\nButton: %s X: %d Y: %d", label, x, y)); //DEBUG ONLY
-			 
-			 //swapTiles(x, y, label);
+			 swapTiles(button);
+			
 		 }		 		 
 	}
 	
