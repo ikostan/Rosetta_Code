@@ -48,7 +48,7 @@ public class GUI extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(600, 550);
 		frame.getContentPane().setLayout(null);
-
+		
 		setTxtField();
 		createButtons();
 		setLables();

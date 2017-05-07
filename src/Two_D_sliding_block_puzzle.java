@@ -2,6 +2,9 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -66,37 +69,43 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 	"\nCheck for valid moves. The player shouldn't be able to skip their turn by trying a move that doesn't change the board.";
 	private String taskLink = "<html><a href=\"https://rosettacode.org/wiki/2048\">Source</a></html>";
 	private static String result = "N/A";
-	
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		new Two_D_sliding_block_puzzle();
-		
-	}
 
 	private final static int HEIGH = 4;
-	private final int WIDTH = 4;
+	private final static int WIDTH = 4;
 	private final static int blockSize = 90;
 	private final static int padding = blockSize / 2;
 	private final static int size = blockSize * HEIGH + padding * 2;
+	private final static int btnBorder = 10;
+	
+	private static String btnLabel;
+	
+	private static JButton button_1, button_2, button_3, button_4, 
+							button_5, button_6, button_7, button_8,
+							button_9,button_10,button_11,button_12,
+							button_13,button_14,button_15,button_16;
+	
+	private static JButton[] btnArray;
+	
+	private static Color btnColor; 
 	
 	private static JFrame framePuzzle;
 	private static JTextField textScore;
 	private static JTextField textBestScore;
 	
-	public Two_D_sliding_block_puzzle(){
+	
+	//Main method
+	public static void main(String[] args){
 		
-		framePuzzle = new JFrame();
-
-		setFrame();
-		createButtons();
-		setTextFields();
-		setLabels();
-		
-		framePuzzle.setVisible(true);
+		// TODO Auto-generated method stub
+		new Two_D_sliding_block_puzzle().runObject();
 	}
 	
+	
+	//Constructor
+	public Two_D_sliding_block_puzzle(){
+		
+		
+	}
 	
 	private static void setFrame(){
 		
@@ -106,96 +115,154 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		framePuzzle.setSize(size - 10, size + padding * 2);
 		framePuzzle.setResizable(false);
 		framePuzzle.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+		framePuzzle.setLocationRelativeTo(null);;
 	}
 	
-	private static void createButtons(){
+	private static void setBtns(){
 		
-		JButton button_4 = new JButton("");
-		button_4.setBackground(new Color(255, 240, 245));
-		button_4.setBounds(322, 45, blockSize, blockSize);
-		framePuzzle.getContentPane().add(button_4);
+		//TODO re-factor setBtns()
 		
-		JButton button_2 = new JButton("");
-		button_2.setBackground(new Color(255, 240, 245));
-		button_2.setBounds(122, 45, 90, 90);
-		framePuzzle.getContentPane().add(button_2);
+		/*
+		int index = 0;
 		
-		JButton button_3 = new JButton("");
-		button_3.setBackground(new Color(255, 240, 245));
-		button_3.setBounds(222, 45, 90, 90);
-		framePuzzle.getContentPane().add(button_3);
+		for(int row = 0; row  < WIDTH; row++){
+			
+			for(int col = 0; col < HEIGHT; col++){
+				
+				String name = Integer.toString(index);
+				
+				btnArray[index] = new JButton(btnLabel);
+				btnArray[index].setBackground(btnColor);
+				btnArray[index].setName(name);
+				btnArray[index].setBounds((padding/2 + btnBorder * col + blockSize * col), (padding + btnBorder * row + blockSize * row), blockSize, blockSize);
+						       .setBounds((padding/2 + btnBorder * 0   + blockSize * 0),   (padding + btnBorder * 0   + blockSize * 0),   blockSize, blockSize);
+
+				btnArray[index].addMouseListener(new MouseAdapter(){
+					
+					//TODO MouseAdapter
+					//Mouse listener event handler
+					public void mousePressed(MouseEvent me) {
+					 						 
+			 			JButton button = (JButton) me.getComponent(); 
+						System.out.println(String.format("Name %s\tLabel %s", button.getName(), button.getText()));
+					}		
+				});
+				
+				framePuzzle.getContentPane().add(btnArray[index]);
+				index++;
+			}
+		}
 		
-		JButton button_1 = new JButton("");
-		button_1.setBackground(new Color(255, 240, 245));
-		button_1.setBounds(padding/2, padding, 90, 90);
+		framePuzzle.getContentPane().repaint();
+		*/
+		
+		//First row
+		button_1 = new JButton("");
+		button_1.setBackground(btnColor);
+		button_1.setBounds((padding/2 + btnBorder * 0 + blockSize * 0), (padding + btnBorder * 0 + blockSize * 0), blockSize, blockSize);
 		framePuzzle.getContentPane().add(button_1);
 		
-		JButton button_5 = new JButton("");
-		button_5.setBackground(new Color(255, 240, 245));
-		button_5.setBounds(22, 146, 90, 90);
+		button_2 = new JButton("");
+		button_2.setBackground(btnColor);
+		button_2.setBounds((padding/2 + btnBorder * 1 + blockSize * 1), (padding + btnBorder * 0 + blockSize * 0), blockSize, blockSize);
+		framePuzzle.getContentPane().add(button_2);
+		
+		button_3 = new JButton("");
+		button_3.setBackground(btnColor);
+		button_3.setBounds((padding/2 + btnBorder * 2 + blockSize * 2), (padding + btnBorder * 0 + blockSize * 0), blockSize, blockSize);
+		framePuzzle.getContentPane().add(button_3);
+		
+		button_4 = new JButton("");
+		button_4.setBackground(btnColor);
+		button_4.setBounds((padding/2 + btnBorder * 3 + blockSize * 3), (padding + btnBorder * 0 + blockSize * 0), blockSize, blockSize);
+		framePuzzle.getContentPane().add(button_4);
+		
+		//Row #2
+		button_5 = new JButton("");
+		button_5.setBackground(btnColor);
+		button_5.setBounds((padding/2 + btnBorder * 0 + blockSize * 0), (padding + btnBorder * 1 + blockSize * 1) , blockSize, blockSize);
 		framePuzzle.getContentPane().add(button_5);
-		
-		JButton button_11 = new JButton("");
-		button_11.setBackground(new Color(255, 240, 245));
-		button_11.setBounds(222, 247, 90, 90);
-		framePuzzle.getContentPane().add(button_11);
-		
-		JButton button_7 = new JButton("");
-		button_7.setBackground(new Color(255, 240, 245));
-		button_7.setBounds(222, 146, 90, 90);
-		framePuzzle.getContentPane().add(button_7);
-		
-		JButton button_6 = new JButton("");
-		button_6.setBackground(new Color(255, 240, 245));
-		button_6.setBounds(122, 146, 90, 90);
+			
+		button_6 = new JButton("");
+		button_6.setBackground(btnColor);
+		button_6.setBounds((padding/2 + btnBorder * 1 + blockSize * 1), (padding + btnBorder * 1 + blockSize * 1), blockSize, blockSize);
 		framePuzzle.getContentPane().add(button_6);
 		
-		JButton button_8 = new JButton("");
-		button_8.setBackground(new Color(255, 240, 245));
-		button_8.setBounds(322, 146, 90, 90);
+		button_7 = new JButton("");
+		button_7.setBackground(btnColor);
+		button_7.setBounds((padding/2 + btnBorder * 2 + blockSize * 2), (padding + btnBorder * 1 + blockSize * 1), blockSize, blockSize);
+		framePuzzle.getContentPane().add(button_7);
+		
+		button_8 = new JButton("");
+		button_8.setBackground(btnColor);
+		button_8.setBounds((padding/2 + btnBorder * 3 + blockSize * 3), (padding + btnBorder * 1 + blockSize * 1), blockSize,blockSize);
 		framePuzzle.getContentPane().add(button_8);
 		
-		JButton button_14 = new JButton("");
-		button_14.setBackground(new Color(255, 240, 245));
-		button_14.setBounds(122, 348, 90, 90);
-		framePuzzle.getContentPane().add(button_14);
-		
-		JButton button_9 = new JButton("");
-		button_9.setBackground(new Color(255, 240, 245));
-		button_9.setBounds(22, 247, 90, 90);
+
+		//Row #3
+		button_9 = new JButton("");
+		button_9.setBackground(btnColor);
+		button_9.setBounds((padding/2 + btnBorder * 0 + blockSize * 0), (padding + btnBorder * 2 + blockSize * 2), blockSize, blockSize);
 		framePuzzle.getContentPane().add(button_9);
 		
-		JButton button_10 = new JButton("");
-		button_10.setBackground(new Color(255, 240, 245));
-		button_10.setBounds(122, 247, 90, 90);
+		button_10 = new JButton("");
+		button_10.setBackground(btnColor);
+		button_10.setBounds((padding/2 + btnBorder * 1 + blockSize * 1), (padding + btnBorder * 2 + blockSize * 2), blockSize, blockSize);
 		framePuzzle.getContentPane().add(button_10);
 		
-		JButton button_15 = new JButton("");
-		button_15.setBackground(new Color(255, 240, 245));
-		button_15.setBounds(222, 348, 90, 90);
-		framePuzzle.getContentPane().add(button_15);
+		button_11 = new JButton("");
+		button_11.setBackground(btnColor);
+		button_11.setBounds((padding/2 + btnBorder * 2 + blockSize * 2), (padding + btnBorder * 2 + blockSize * 2), blockSize, blockSize);
+		framePuzzle.getContentPane().add(button_11);
 		
-		JButton button_12 = new JButton("");
-		button_12.setBackground(new Color(255, 240, 245));
-		button_12.setBounds(322, 247, 90, 90);
+		button_12 = new JButton("");
+		button_12.setBackground(btnColor);
+		button_12.setBounds((padding/2 + btnBorder * 3 + blockSize * 3), (padding + btnBorder * 2 + blockSize * 2), blockSize, blockSize);
 		framePuzzle.getContentPane().add(button_12);
 		
-		JButton button_13 = new JButton("");
-		button_13.setBackground(new Color(255, 240, 245));
-		button_13.setBounds(22, 348, 90, 90);
+		
+		//Last row (#4)
+		button_13 = new JButton("");
+		button_13.setBackground(btnColor);
+		button_13.setBounds((padding/2 + btnBorder * 0 + blockSize * 0), (padding + btnBorder * 3 + blockSize * 3), blockSize, blockSize);
 		framePuzzle.getContentPane().add(button_13);
 		
-		JButton button_16 = new JButton("");
-		button_16.setBackground(new Color(255, 240, 245));
-		button_16.setBounds(322, 348, 90, 90);
+		button_14 = new JButton("");
+		button_14.setBackground(btnColor);
+		button_14.setBounds((padding/2 + btnBorder * 1 + blockSize * 1), (padding + btnBorder * 3 + blockSize * 3), blockSize, blockSize);
+		framePuzzle.getContentPane().add(button_14);
+		
+		button_15 = new JButton("");
+		button_15.setBackground(btnColor);
+		button_15.setBounds((padding/2 + btnBorder * 2 + blockSize * 2), (padding + btnBorder * 3 + blockSize * 3), blockSize, blockSize);
+		framePuzzle.getContentPane().add(button_15);
+		
+		button_16 = new JButton("");
+		button_16.setBackground(btnColor);
+		button_16.setBounds((padding/2 + btnBorder * 3 + blockSize * 3), (padding + btnBorder * 3 + blockSize * 3), blockSize, blockSize);
 		framePuzzle.getContentPane().add(button_16);
+		
+		
+	}
+	
+	private static void setRestartBnt(){
 		
 		JButton btnRestart = new JButton("Restart the game");
 		btnRestart.setBounds(123, 462, 189, 23);
+		btnRestart.addMouseListener(new MouseAdapter(){
+					
+			//TODO MouseAdapter
+			//Mouse listener event handler
+			public void mousePressed(MouseEvent me) {
+			 						 
+	 			 
+			}		 		
+			
+		});
 		framePuzzle.getContentPane().add(btnRestart);
 	}
 	
-	private static void setTextFields(){
+	private static void setTxtFields(){
 		
 		textScore = new JTextField();
 		textScore.setEditable(false);
@@ -209,7 +276,6 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		textBestScore.setBounds(299, 8, 86, 20);
 		framePuzzle.getContentPane().add(textBestScore);
 	}
-	
 	
 	private static void setLabels(){
 		
@@ -249,7 +315,28 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 
 	@Override
 	public void runObject() {
-		// TODO Auto-generated method stub
 		
+		// TODO runObject()
+		framePuzzle = new JFrame();
+		
+		btnColor = new Color(255, 240, 245);
+		
+		btnLabel = "";
+		
+		btnArray = new JButton[]{button_1, button_2, button_3, button_4, 
+								button_5, button_6, button_7, button_8,
+								button_9,button_10,button_11,button_12,
+								button_13,button_14,button_15,button_16};
+		
+		
+		setFrame();
+		setBtns();
+		setRestartBnt();
+		setTxtFields();
+		setLabels();
+		
+		framePuzzle.setVisible(true);
 	}
+	
+	//END
 }
