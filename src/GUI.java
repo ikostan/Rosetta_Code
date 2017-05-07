@@ -191,6 +191,12 @@ public class GUI extends JFrame {
 					new PuzzleGame().runObject();
 					break;
 				case 2:
+					new Two_D_sliding_block_puzzle().runObject();
+					break;
+				case 3:
+					//
+					break;
+				case 4:
 					//
 					break;
 				default:

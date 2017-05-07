@@ -44,7 +44,7 @@ public class PuzzleGame extends JFrame implements MainInterface {
 	private String taskLink = "<html><a href=\"https://rosettacode.org/wiki/15_Puzzle_Game\">Source</a></html>";
 	private static String result = "N/A";
 
-	static JFrame main;
+	static JFrame puzzle15;
 	
 	private final static int totalWidth = 440;
 	private static final int ROWS = 4;
@@ -92,9 +92,9 @@ public class PuzzleGame extends JFrame implements MainInterface {
 	//Swap buttons
 	private static void swapBtn(JButton button){
 		
-		main.getContentPane().remove(button);
-		main.getContentPane().remove(buttonsArray[buttonsArray .length - 1]);
-		main.getContentPane().repaint();
+		puzzle15.getContentPane().remove(button);
+		puzzle15.getContentPane().remove(buttonsArray[buttonsArray .length - 1]);
+		puzzle15.getContentPane().repaint();
 		
 		int tempX = button.getX();
 		int tempY = button.getY();
@@ -102,8 +102,8 @@ public class PuzzleGame extends JFrame implements MainInterface {
 		button.setLocation(buttonsArray[buttonsArray .length - 1].getX(), buttonsArray[buttonsArray .length - 1].getY());
 		buttonsArray[buttonsArray .length - 1].setLocation(tempX, tempY);
 		
-		main.getContentPane().add(button);
-		main.getContentPane().repaint();
+		puzzle15.getContentPane().add(button);
+		puzzle15.getContentPane().repaint();
 	}
 	
 	//Swap between buttons
@@ -239,7 +239,7 @@ public class PuzzleGame extends JFrame implements MainInterface {
 	// Creates a new object
 	public void runObject() {
 
-        main = new JFrame();
+        puzzle15 = new JFrame();
 		setLocationsArr();
 		locations = randTiles(locations);
 
@@ -248,17 +248,17 @@ public class PuzzleGame extends JFrame implements MainInterface {
 									  button_8, button_9, button_10, button_11, 
 									  button_12, button_13, button_14, button_15};
 
-		main.setTitle("15 Puzzle Game");
-		main.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-		main.getContentPane().setLayout(null);
-		main.setAlwaysOnTop(false);
-		main.setSize(totalWidth, totalWidth + (padding * 2));
-		main.setResizable(false);
+		puzzle15.setTitle("15 Puzzle Game");
+		puzzle15.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+		puzzle15.getContentPane().setLayout(null);
+		puzzle15.setAlwaysOnTop(false);
+		puzzle15.setSize(totalWidth, totalWidth + (padding * 2));
+		puzzle15.setResizable(false);
 
 		setButtons();
 
-		main.setLocationRelativeTo(null);
-		main.setVisible(true);
+		puzzle15.setLocationRelativeTo(null);
+		puzzle15.setVisible(true);
 	}
 
 	// Set button location
@@ -291,15 +291,14 @@ public class PuzzleGame extends JFrame implements MainInterface {
 													
 							//Mouse listener event handler
 							 public void mousePressed(MouseEvent me) {
-							 
-								 //TODO action click on button event						 
+							 						 
 								 JButton button = (JButton)me.getComponent();		 
 								 swapTiles(button);
 								 isWon();		 			 
 							 }		 		 											
 					});
 					
-					main.getContentPane().add(buttonsArray[i]);
+					puzzle15.getContentPane().add(buttonsArray[i]);
 				} 
 				else {
 					
@@ -325,7 +324,6 @@ public class PuzzleGame extends JFrame implements MainInterface {
 					restart();
 				}
 				else{
-					//TODO question are you sure?
 					
 					//Custom button text
 					Object[] options = {"Yes",
@@ -361,7 +359,7 @@ public class PuzzleGame extends JFrame implements MainInterface {
 				(slideSize * (COLS / 2)),
 				//Height
 				padding);
-		main.getContentPane().add(btnRestart);
+		puzzle15.getContentPane().add(btnRestart);
 	}
 	
 	//Restart the game
@@ -369,13 +367,13 @@ public class PuzzleGame extends JFrame implements MainInterface {
 		
 		for(JButton button : buttonsArray){
 			
-			main.getContentPane().remove(button);
+			puzzle15.getContentPane().remove(button);
 		}
 		
-		main.repaint();
+		puzzle15.repaint();
 		locations = randTiles(locations);
 		setButtons();
-		main.repaint();	
+		puzzle15.repaint();	
 	}
 		
 	//Rearrange all buttons to win-win position
@@ -386,7 +384,7 @@ public class PuzzleGame extends JFrame implements MainInterface {
 			for (int col = 0; col < COLS; col++) {
 				if (i < numTiles - 1) {
 					setButtonBounds(row, col, buttonsArray[i], initLocations);
-					main.getContentPane().add(buttonsArray[i]);
+					puzzle15.getContentPane().add(buttonsArray[i]);
 				} 
 				else {
 					

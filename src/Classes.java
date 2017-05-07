@@ -21,6 +21,11 @@ public class Classes {
 		 PuzzleGame puzzleGame = new PuzzleGame();
 		 String[] myString2 = {puzzleGame.getTaskName(), puzzleGame.getTaskDescription(), puzzleGame.getTaskResult()};
 		 className.add(myString2);
+		 
+		 //2048 Game
+		 Two_D_sliding_block_puzzle game2048 = new Two_D_sliding_block_puzzle();
+		 String[] myString3 = {game2048.getTaskName(), game2048.getTaskDescription(), game2048.getTaskResult()};
+		 className.add(myString3);
 	}
 	
 	//Return String array object
