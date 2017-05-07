@@ -1,6 +1,7 @@
 import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 import java.awt.SystemColor;
@@ -50,7 +51,7 @@ public class PuzzleGame extends JFrame implements MainInterface {
 	private static final int COLS = 4;
 	private static final int padding = 40;
 	private static int slideSize = (totalWidth - padding * 2) / ROWS;
-	private int numTiles = ROWS * COLS;
+	private static int numTiles = ROWS * COLS;
 
 	private static int x0 = padding;
 	private static int x1 = padding + slideSize;
@@ -65,6 +66,7 @@ public class PuzzleGame extends JFrame implements MainInterface {
 	private static Random rand;
 
 	private static int[][][] locations;
+	private static int[][][] initLocations;
 	private static JButton[] buttonsArray;
 	
 	private JButton button_0, button_1, button_2, button_3, 
@@ -144,6 +146,14 @@ public class PuzzleGame extends JFrame implements MainInterface {
 	//Create initial locations array
 	private static void setLocationsArr(){
 		
+		initLocations = new int[][][] {
+			// column 0	  //column 1  //column 2  //column 3
+			{ { x0, y0 }, { x1, y0 }, { x2, y0 }, { x3, y0 } }, //row 0
+			{ { x0, y1 }, { x1, y1 }, { x2, y1 }, { x3, y1 } }, //row 1
+			{ { x0, y2 }, { x1, y2 }, { x2, y2 }, { x3, y2 } }, //row 2
+			{ { x0, y3 }, { x1, y3 }, { x2, y3 }, { x3, y3 } }  //row 3
+		};
+		
 		locations = new int[][][] {
 			// column 0	  //column 1  //column 2  //column 3
 			{ { x0, y0 }, { x1, y0 }, { x2, y0 }, { x3, y0 } }, //row 0
@@ -154,24 +164,32 @@ public class PuzzleGame extends JFrame implements MainInterface {
 	}
 	
 	//Check if user wins
-	/*
 	private static boolean isWon(){	
 		
-		//TODO is Won
+		boolean win = true;
+		int i = 0;
 		
-		if(Arrays.deepEquals()){
-			return true;
+		for(int row = 0; row < ROWS; row++){
+			
+			for(int col = 0; col < COLS; col++){
+					
+				if(!(buttonsArray[i].getX() == initLocations[row][col][0] && buttonsArray[i].getY() == initLocations[row][col][1])){
+					win = false;
+					break;
+				}
+				i++;
+			}
+		}	
+		
+		if(win == true){
 			JOptionPane.showMessageDialog(null,
 				    "Congratulations, you won :-)",
 				    "Congratulations",
 				    JOptionPane.INFORMATION_MESSAGE);
 		}
-		else{
-			return false;
-		}
 		
+		return win;
 	}
-	*/
 	
 	//Swapping array values
 	private static int[][][] randTiles(int[][][] array){
@@ -244,13 +262,13 @@ public class PuzzleGame extends JFrame implements MainInterface {
 	}
 
 	// Set button location
-	private void setButtonBounds(int row, int col, JButton button, int[][][] locations) {
+	private static void setButtonBounds(int row, int col, JButton button, int[][][] locations) {
 									// X 					//Y 		//Height 	//Width
 		button.setBounds(locations[row][col][0], locations[row][col][1], slideSize, slideSize);
 	}
 	
 	// Create tiles/buttons
-	private void setButtons() {
+	private static void setButtons() {
 
 		String label = "";
 		int i = 0;
@@ -268,9 +286,20 @@ public class PuzzleGame extends JFrame implements MainInterface {
 					buttonsArray[i].setFont(new Font("Times New Roman", Font.BOLD, 40));
 					buttonsArray[i].setBackground(SystemColor.activeCaption);
 					setButtonBounds(row, col, buttonsArray[i], locations);
-					buttonsArray[i].addMouseListener(new MouseListener());
+					
+					buttonsArray[i].addMouseListener(new MouseAdapter(){
+													
+							//Mouse listener event handler
+							 public void mousePressed(MouseEvent me) {
+							 
+								 //TODO action click on button event						 
+								 JButton button = (JButton)me.getComponent();		 
+								 swapTiles(button);
+								 isWon();		 			 
+							 }		 		 											
+					});
+					
 					main.getContentPane().add(buttonsArray[i]);
-					//main.getContentPane().add(buttonsArray[i]);
 				} 
 				else {
 					
@@ -291,17 +320,35 @@ public class PuzzleGame extends JFrame implements MainInterface {
 			// Restart the game event handler
 			public void actionPerformed(ActionEvent arg0) {
 			
-				//TODO Restart button
-
-				for(JButton button : buttonsArray){
-					
-					main.getContentPane().remove(button);
+				if(isWon()){
+					//Restart the game
+					restart();
 				}
-				
-				main.repaint();
-				locations = randTiles(locations);
-				setButtons();
-				main.repaint();				
+				else{
+					//TODO question are you sure?
+					
+					//Custom button text
+					Object[] options = {"Yes",
+					                    "No"};
+					
+					int n = JOptionPane.showOptionDialog(null,
+					    "Current game still inprogress.\n"
+					    + "Are you sure you want restart the game?",
+					    "A Silly Question",
+					    JOptionPane.YES_NO_OPTION,
+					    JOptionPane.QUESTION_MESSAGE,
+					    null,
+					    options,
+					    options[1]);
+					
+					System.out.println("Clicked: " + n);
+					
+					if(n == 0){
+						
+						//Restart the game
+						restart();
+					}
+				}				
 			}
 		});
 		
@@ -315,24 +362,42 @@ public class PuzzleGame extends JFrame implements MainInterface {
 				//Height
 				padding);
 		main.getContentPane().add(btnRestart);
-
 	}
-
 	
-	private class MouseListener extends MouseAdapter{		
+	//Restart the game
+	private static void restart(){
 		
-		 //Mouse listener event handler
-		 public void mousePressed(MouseEvent me) {
-		 
-			 //TODO action click on button event						 
-			 JButton button = (JButton)me.getComponent();
-			 
-			 swapTiles(button);
+		for(JButton button : buttonsArray){
 			
-		 }		 		 
+			main.getContentPane().remove(button);
+		}
+		
+		main.repaint();
+		locations = randTiles(locations);
+		setButtons();
+		main.repaint();	
 	}
-	
-	
+		
+	//Rearrange all buttons to win-win position
+	private static void testMethod(){
+		
+		int i = 0;		
+		for (int row = 0; row < ROWS; row++) {
+			for (int col = 0; col < COLS; col++) {
+				if (i < numTiles - 1) {
+					setButtonBounds(row, col, buttonsArray[i], initLocations);
+					main.getContentPane().add(buttonsArray[i]);
+				} 
+				else {
+					
+					//Last (empty) slide/tile
+					buttonsArray[i].setBounds((padding + slideSize * 3), (padding + slideSize * 3), slideSize, slideSize);
+				}
+				i++; // Total index
+			}
+		}
+	}
+		
 	@Override
 	public String getTaskName() {
 		return taskName;
