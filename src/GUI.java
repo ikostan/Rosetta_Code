@@ -197,24 +197,20 @@ public class GUI extends JFrame {
 		buttonSolution.addActionListener(new ActionListener() {
 			// RUN button event handler
 			public void actionPerformed(ActionEvent e) {
-
-				String jarFolder = rootFolder + "\\jar_files\\";
+								
 				
-				//TODO
-				
-				try {
 					
-				    switch (id) {
+				switch (id) {
 				    	case 0:
-				    		Desktop.getDesktop().open(new File(jarFolder + "Two_D_sliding_block_puzzle.jar"));
+				    		//Desktop.getDesktop().open(new File(jarFolder + "Two_D_sliding_block_puzzle.jar"));
 				    		break;
 				    	case 1:
 				    		//new PuzzleGame().runObject();
-				    		Desktop.getDesktop().open(new File(jarFolder + "PuzzleGame.jar"));
+				    		openFile("PuzzleGame.jar");
 				    		break;
 				    	case 2:
 				    		//new Two_D_sliding_block_puzzle().runObject();
-				    		Desktop.getDesktop().open(new File(jarFolder + "Two_D_sliding_block_puzzle.jar"));
+				    		openFile("Two_D_sliding_block_puzzle.jar");
 				    		break;
 				    	case 3:
 				    		//
@@ -225,13 +221,7 @@ public class GUI extends JFrame {
 				    	default:
 				    		break;
 				    }
-				} 
-				catch (IOException ex) {
-					//Error
-				    //System.out.println(ex.getMessage());
-					String error = ex.getMessage();
-					JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.ERROR_MESSAGE);
-				}	
+				
 				
 			textAreaSolution.setText(description[2]);
 			}
@@ -301,6 +291,22 @@ public class GUI extends JFrame {
 		frame.getContentPane().add(scrollPane2);
 	}
 
+	
+	private static void openFile(String fileName){
+		//Folder name with jar files
+		String jarFolder = rootFolder + "\\jar_files\\";
+
+		try{
+			//Open the file
+			Desktop.getDesktop().open(new File(jarFolder + fileName));
+		} 
+		catch (IOException ex) {
+			//Error
+			String error = ex.getMessage();
+			JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.ERROR_MESSAGE);
+		}	
+	}
+	
 	private void setProgressBar() {
 
 		progressBar = new JProgressBar();
