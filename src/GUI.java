@@ -198,7 +198,7 @@ public class GUI extends JFrame {
 			// RUN button event handler
 			public void actionPerformed(ActionEvent e) {
 
-				String jarFolder = rootFolder + "\\src\\jar_files\\";
+				String jarFolder = rootFolder + "\\jar_files\\";
 				
 				//TODO
 				
