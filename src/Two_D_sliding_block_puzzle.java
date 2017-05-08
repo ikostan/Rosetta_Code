@@ -42,6 +42,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 	  
 	 */
 	
+	private static final long serialVersionUID = 1L;
 	
 	private static String taskName = "2D sliding block puzzle game (2048)";
 	private String taskDescription = "Implement a 2D sliding block puzzle game where blocks with numbers are combined to add their values.\n" +
@@ -78,6 +79,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 	private final static int btnBorder = 10;
 	
 	private static String btnLabel;
+	private static mouseListener btnListener;
 	
 	private static JButton button_1, button_2, button_3, button_4, 
 							button_5, button_6, button_7, button_8,
@@ -122,7 +124,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		
 		//TODO re-factor setBtns()
 		
-		/*
+		
 		int index = 0;
 		
 		for(int row = 0; row  < WIDTH; row++){
@@ -135,18 +137,9 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 				btnArray[index].setBackground(btnColor);
 				btnArray[index].setName(name);
 				btnArray[index].setBounds((padding/2 + btnBorder * col + blockSize * col), (padding + btnBorder * row + blockSize * row), blockSize, blockSize);
-						       .setBounds((padding/2 + btnBorder * 0   + blockSize * 0),   (padding + btnBorder * 0   + blockSize * 0),   blockSize, blockSize);
+						     //.setBounds((padding/2 + btnBorder * 0   + blockSize * 0),   (padding + btnBorder * 0   + blockSize * 0),   blockSize, blockSize);
 
-				btnArray[index].addMouseListener(new MouseAdapter(){
-					
-					//TODO MouseAdapter
-					//Mouse listener event handler
-					public void mousePressed(MouseEvent me) {
-					 						 
-			 			JButton button = (JButton) me.getComponent(); 
-						System.out.println(String.format("Name %s\tLabel %s", button.getName(), button.getText()));
-					}		
-				});
+				btnArray[index].addMouseListener(btnListener);
 				
 				framePuzzle.getContentPane().add(btnArray[index]);
 				index++;
@@ -154,8 +147,8 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		}
 		
 		framePuzzle.getContentPane().repaint();
-		*/
 		
+		/*
 		//First row
 		button_1 = new JButton("");
 		button_1.setBackground(btnColor);
@@ -241,7 +234,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		button_16.setBackground(btnColor);
 		button_16.setBounds((padding/2 + btnBorder * 3 + blockSize * 3), (padding + btnBorder * 3 + blockSize * 3), blockSize, blockSize);
 		framePuzzle.getContentPane().add(button_16);
-		
+		*/
 		
 	}
 	
@@ -323,6 +316,8 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		
 		btnLabel = "";
 		
+		btnListener = new mouseListener();
+		
 		btnArray = new JButton[]{button_1, button_2, button_3, button_4, 
 								button_5, button_6, button_7, button_8,
 								button_9,button_10,button_11,button_12,
@@ -336,6 +331,26 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		setLabels();
 		
 		framePuzzle.setVisible(true);
+	}
+	
+	private class mouseListener extends MouseAdapter{
+		
+		//TODO MouseAdapter
+		//Mouse listener event handler
+		public void mousePressed(MouseEvent me) {
+		 		
+			JButton button = (JButton) me.getSource();
+			String btnName = me.getSource().toString();	//DEBUG							
+			String[] btnProperties = btnName.split(",");//DEBUG	
+			//DEBUG
+			for(String btnPropertie : btnProperties){
+				//Show all button properties
+				System.out.println(String.format("%s", btnPropertie)); //DEBUG
+			}
+			
+			//JButton button = (JButton) me.getComponent(); 
+			//System.out.println(String.format("\nName: %s\tLabel: %s", button.getName(), button.getText())); //DEBUG
+		}		
 	}
 	
 	//END

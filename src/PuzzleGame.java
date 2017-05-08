@@ -94,6 +94,7 @@ public class PuzzleGame extends JFrame implements MainInterface {
 		
 		puzzle15.getContentPane().remove(button);
 		puzzle15.getContentPane().remove(buttonsArray[buttonsArray .length - 1]);
+		puzzle15.getContentPane().revalidate();
 		puzzle15.getContentPane().repaint();
 		
 		int tempX = button.getX();
@@ -103,6 +104,7 @@ public class PuzzleGame extends JFrame implements MainInterface {
 		buttonsArray[buttonsArray .length - 1].setLocation(tempX, tempY);
 		
 		puzzle15.getContentPane().add(button);
+		puzzle15.getContentPane().revalidate();
 		puzzle15.getContentPane().repaint();
 	}
 	
@@ -370,10 +372,11 @@ public class PuzzleGame extends JFrame implements MainInterface {
 			puzzle15.getContentPane().remove(button);
 		}
 		
-		puzzle15.repaint();
+
 		locations = randTiles(locations);
 		setButtons();
-		puzzle15.repaint();	
+		puzzle15.getContentPane().revalidate();
+		puzzle15.getContentPane().repaint();
 	}
 		
 	//Rearrange all buttons to win-win position
