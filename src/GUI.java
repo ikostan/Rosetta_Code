@@ -57,6 +57,8 @@ public class GUI extends JFrame {
 		showDescription(id);
 
 		frame.setLocationRelativeTo(null); // Place in the center of the screen
+		frame.getContentPane().revalidate();
+		frame.getContentPane().repaint();
 		frame.setVisible(true);
 
 		// Constructor

@@ -2,6 +2,7 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -88,7 +89,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 	
 	private static JButton[] btnArray;
 	
-	private static Color btnColor; 
+	private static Color btnColor, frameColor; 
 	
 	private static JFrame framePuzzle;
 	private static JTextField textScore;
@@ -111,7 +112,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 	
 	private static void setFrame(){
 		
-		framePuzzle.getContentPane().setBackground(new Color(222, 184, 135));
+		framePuzzle.getContentPane().setBackground(frameColor);
 		framePuzzle.getContentPane().setLayout(null);
 		framePuzzle.setTitle(taskName);
 		framePuzzle.setSize(size - 10, size + padding * 2);
@@ -146,6 +147,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 			}
 		}
 		
+		framePuzzle.getContentPane().revalidate();
 		framePuzzle.getContentPane().repaint();
 		
 		/*
@@ -313,6 +315,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		framePuzzle = new JFrame();
 		
 		btnColor = new Color(255, 240, 245);
+		frameColor = SystemColor.controlHighlight;
 		
 		btnLabel = "";
 		
