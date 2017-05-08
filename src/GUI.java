@@ -6,11 +6,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import java.awt.Font;
 import javax.swing.JScrollPane;
 import java.awt.Color;
+import java.awt.Desktop;
+
 import javax.swing.JProgressBar;
 import java.awt.SystemColor;
 
@@ -31,6 +37,9 @@ public class GUI extends JFrame {
 	private static final int LAST = 99;
 	private static int id = 0;
 
+	private static Path currentRelativePath;
+	private static String rootFolder;
+	
 	// Main method
 	public static void main(String[] args) {
 
@@ -48,6 +57,9 @@ public class GUI extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(600, 550);
 		frame.getContentPane().setLayout(null);
+		
+		currentRelativePath = Paths.get(""); //relative path
+		rootFolder = currentRelativePath.toAbsolutePath().toString(); //absolute path
 		
 		setTxtField();
 		createButtons();
@@ -186,26 +198,42 @@ public class GUI extends JFrame {
 			// RUN button event handler
 			public void actionPerformed(ActionEvent e) {
 
-				switch (id) {
-				case 0:
-					break;
-				case 1:
-					new PuzzleGame().runObject();
-					break;
-				case 2:
-					new Two_D_sliding_block_puzzle().runObject();
-					break;
-				case 3:
-					//
-					break;
-				case 4:
-					//
-					break;
-				default:
-					break;
-				}
-
-				textAreaSolution.setText(description[2]);
+				String jarFolder = rootFolder + "\\src\\jar_files\\";
+				
+				//TODO
+				
+				try {
+					
+				    switch (id) {
+				    	case 0:
+				    		Desktop.getDesktop().open(new File(jarFolder + "Two_D_sliding_block_puzzle.jar"));
+				    		break;
+				    	case 1:
+				    		//new PuzzleGame().runObject();
+				    		Desktop.getDesktop().open(new File(jarFolder + "PuzzleGame.jar"));
+				    		break;
+				    	case 2:
+				    		//new Two_D_sliding_block_puzzle().runObject();
+				    		Desktop.getDesktop().open(new File(jarFolder + "Two_D_sliding_block_puzzle.jar"));
+				    		break;
+				    	case 3:
+				    		//
+				    		break;
+				    	case 4:
+				    		//
+				    		break;
+				    	default:
+				    		break;
+				    }
+				} 
+				catch (IOException ex) {
+					//Error
+				    //System.out.println(ex.getMessage());
+					String error = ex.getMessage();
+					JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.ERROR_MESSAGE);
+				}	
+				
+			textAreaSolution.setText(description[2]);
 			}
 		});
 

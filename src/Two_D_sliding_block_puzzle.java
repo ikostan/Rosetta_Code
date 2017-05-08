@@ -99,15 +99,14 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 	//Main method
 	public static void main(String[] args){
 		
-		// TODO Auto-generated method stub
+		// TODO Main function
 		new Two_D_sliding_block_puzzle().runObject();
 	}
 	
 	
 	//Constructor
 	public Two_D_sliding_block_puzzle(){
-		
-		
+				
 	}
 	
 	private static void setFrame(){
@@ -117,14 +116,11 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		framePuzzle.setTitle(taskName);
 		framePuzzle.setSize(size - 10, size + padding * 2);
 		framePuzzle.setResizable(false);
-		framePuzzle.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+		framePuzzle.setDefaultCloseOperation(framePuzzle.EXIT_ON_CLOSE);
 		framePuzzle.setLocationRelativeTo(null);;
 	}
 	
 	private static void setBtns(){
-		
-		//TODO re-factor setBtns()
-		
 		
 		int index = 0;
 		
@@ -158,7 +154,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		btnRestart.setBounds(123, 462, 189, 23);
 		btnRestart.addMouseListener(new MouseAdapter(){
 					
-			//TODO MouseAdapter
+			//TODO MouseAdapter for setRestartBnt
 			//Mouse listener event handler
 			public void mousePressed(MouseEvent me) {
 			 						 
@@ -171,14 +167,15 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 	
 	private static void setTxtFields(){
 		
+		//Score text field
 		textScore = new JTextField();
 		textScore.setEditable(false);
 		textScore.setColumns(10);
 		textScore.setBounds(63, 8, 86, 20);
 		textScore.setBackground(txtFieldColor);
 		framePuzzle.getContentPane().add(textScore);
-
 		
+		//Best score text field
 		textBestScore = new JTextField();
 		textBestScore.setEditable(false);
 		textBestScore.setColumns(10);
@@ -254,7 +251,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 	
 	private class mouseListener extends MouseAdapter{
 		
-		//TODO MouseAdapter
+		//TODO MouseAdapter for mouseListener
 		//Mouse listener event handler
 		public void mousePressed(MouseEvent me) {
 		 		

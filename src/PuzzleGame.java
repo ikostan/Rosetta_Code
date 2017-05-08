@@ -251,7 +251,7 @@ public class PuzzleGame extends JFrame implements MainInterface {
 									  button_12, button_13, button_14, button_15};
 
 		puzzle15.setTitle("15 Puzzle Game");
-		puzzle15.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+		puzzle15.setDefaultCloseOperation(puzzle15.EXIT_ON_CLOSE);
 		puzzle15.getContentPane().setLayout(null);
 		puzzle15.setAlwaysOnTop(false);
 		puzzle15.setSize(totalWidth, totalWidth + (padding * 2));
