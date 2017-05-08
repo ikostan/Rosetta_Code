@@ -116,7 +116,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		framePuzzle.setTitle(taskName);
 		framePuzzle.setSize(size - 10, size + padding * 2);
 		framePuzzle.setResizable(false);
-		framePuzzle.setDefaultCloseOperation(framePuzzle.EXIT_ON_CLOSE);
+		framePuzzle.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		framePuzzle.setLocationRelativeTo(null);;
 	}
 	

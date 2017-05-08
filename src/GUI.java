@@ -197,9 +197,8 @@ public class GUI extends JFrame {
 		buttonSolution.addActionListener(new ActionListener() {
 			// RUN button event handler
 			public void actionPerformed(ActionEvent e) {
-								
 				
-					
+				//Run jar/object
 				switch (id) {
 				    	case 0:
 				    		//Desktop.getDesktop().open(new File(jarFolder + "Two_D_sliding_block_puzzle.jar"));
@@ -291,7 +290,7 @@ public class GUI extends JFrame {
 		frame.getContentPane().add(scrollPane2);
 	}
 
-	
+	//Opens jar file
 	private static void openFile(String fileName){
 		//Folder name with jar files
 		String jarFolder = rootFolder + "\\jar_files\\";
