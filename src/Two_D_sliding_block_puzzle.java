@@ -133,8 +133,11 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 				btnArray[index] = new JButton(btnLabel);
 				btnArray[index].setBackground(btnColor);
 				btnArray[index].setName(name);
-				btnArray[index].setBounds((padding/2 + btnBorder * col + blockSize * col), (padding + btnBorder * row + blockSize * row), blockSize, blockSize);
-				
+				btnArray[index].setBounds(
+						(padding/2 + btnBorder * col + blockSize * col), 
+						(padding + btnBorder * row + blockSize * row), 
+						blockSize, 
+						blockSize);			
 				//System.out.println(String.format("(col): %d\tX: %3d\t(row):%d\tY %3d", col, (padding/2 + btnBorder * col + blockSize * col), row, (padding + btnBorder * row + blockSize * row))); //DEBUG
 				
 				btnArray[index].addMouseListener(btnListener);				
