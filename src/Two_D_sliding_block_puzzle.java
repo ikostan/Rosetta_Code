@@ -155,12 +155,11 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		
 		JButton btnRestart = new JButton("Restart the game");
 		btnRestart.setBounds(123, 462, 189, 23);
-		btnRestart.addMouseListener(new MouseAdapter(){
-					
-			//TODO MouseAdapter for setRestartBnt
+		btnRestart.addMouseListener(new MouseAdapter(){			
 			//Mouse listener event handler
 			public void mousePressed(MouseEvent me) {
-			 						 
+				//TODO MouseAdapter for setRestartBnt
+				 
 	 			 
 			}		 		
 			
@@ -242,7 +241,6 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 								button_9,button_10,button_11,button_12,
 								button_13,button_14,button_15,button_16};
 		
-		
 		setFrame();
 		setBtns();
 		setRestartBnt();
@@ -252,23 +250,23 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		framePuzzle.setVisible(true);
 	}
 	
-	private class mouseListener extends MouseAdapter{
-		
-		//TODO MouseAdapter for mouseListener
+	private class mouseListener extends MouseAdapter{	
 		//Mouse listener event handler
 		public void mousePressed(MouseEvent me) {
-		 		
+		 	
+			//TODO MouseAdapter for mouseListener		
 			JButton button = (JButton) me.getSource();
+				
+			/*
+			//DEBUG
 			String btnName = me.getSource().toString();	//DEBUG							
 			String[] btnProperties = btnName.split(",");//DEBUG	
-			
-			//DEBUG
 			for(String btnPropertie : btnProperties){
 				//Show all button properties
-				//System.out.println(String.format("%s", btnPropertie)); //DEBUG
+				System.out.println(String.format("%s", btnPropertie)); //DEBUG
 			}
+			*/
 			
-			//JButton button = (JButton) me.getComponent(); 
 			System.out.println(String.format("\nName: %2s\tLabel: %2s", button.getName(), button.getText())); //DEBUG
 		}		
 	}
