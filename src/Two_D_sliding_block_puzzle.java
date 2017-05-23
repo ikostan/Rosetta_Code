@@ -1,15 +1,15 @@
 import javax.swing.JFrame;
-import javax.swing.WindowConstants;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
+public class Two_D_sliding_block_puzzle extends JFrame implements KeyListener, MainInterface{
 
 	/*
 	
@@ -46,6 +46,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 	private static final long serialVersionUID = 1L;
 	
 	private static String taskName = "2D sliding block puzzle game (2048)";
+	
 	private String taskDescription = "Implement a 2D sliding block puzzle game where blocks with numbers are combined to add their values.\n" +
 	"The rules are that each turn the player must perform a valid move shifting all tiles in one direction\n"+
 	"(up, down, left or right). A move is valid when at least one tile can be moved in that direction.\n"+
@@ -109,6 +110,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 				
 	}
 	
+	//Setup all components inside the frame 
 	private static void setFrame(){
 		
 		framePuzzle.getContentPane().setBackground(frameColor);
@@ -120,6 +122,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		framePuzzle.setLocationRelativeTo(null);;
 	}
 	
+	//Create buttons
 	private static void setBtns(){
 		
 		int index = 0;
@@ -151,6 +154,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		
 	}
 	
+	//Create restart button
 	private static void setRestartBnt(){
 		
 		JButton btnRestart = new JButton("Restart the game");
@@ -167,6 +171,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		framePuzzle.getContentPane().add(btnRestart);
 	}
 	
+	//Create all text fields
 	private static void setTxtFields(){
 		
 		//Score text field
@@ -186,6 +191,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		framePuzzle.getContentPane().add(textBestScore);
 	}
 	
+	//Create all labels
 	private static void setLabels(){
 		
 		JLabel lblScore = new JLabel("Score:");
@@ -197,31 +203,6 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		framePuzzle.getContentPane().add(lblBestScore);
 	}
 	
-	@Override
-	public String getTaskName() {
-		return taskName;
-	}
-
-	@Override
-	public String getTaskDescription() {
-		return taskDescription;
-	}
-
-	@Override
-	public String getTaskLink() {
-		return taskLink;
-	}
-
-	@Override
-	public String getTaskResult() {
-		return result;
-	}
-
-	@Override
-	public void setResult(String newResult) {
-		// There id nothing to implement		
-	}
-
 	@Override
 	public void runObject() {
 		
@@ -250,6 +231,51 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		framePuzzle.setVisible(true);
 	}
 	
+	@Override
+	public String getTaskName() {
+		return taskName;
+	}
+
+	@Override
+	public String getTaskDescription() {
+		return taskDescription;
+	}
+
+	@Override
+	public String getTaskLink() {
+		return taskLink;
+	}
+
+	@Override
+	public String getTaskResult() {
+		return result;
+	}
+
+	@Override
+	public void setResult(String newResult) {
+		// There id nothing to implement		
+	}
+	
+	//Keyboard listener methods
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	//Inner Class
 	private class mouseListener extends MouseAdapter{	
 		//Mouse listener event handler
 		public void mousePressed(MouseEvent me) {
@@ -270,6 +296,6 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 			System.out.println(String.format("\nName: %2s\tLabel: %2s", button.getName(), button.getText())); //DEBUG
 		}		
 	}
-	
+
 	//END
 }
