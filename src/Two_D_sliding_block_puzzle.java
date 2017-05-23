@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class Two_D_sliding_block_puzzle extends JFrame implements KeyListener, MainInterface{
+public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 
 	/*
 	
@@ -119,7 +119,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements KeyListener, M
 		framePuzzle.setSize(size - 10, size + padding * 2);
 		framePuzzle.setResizable(false);
 		framePuzzle.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		framePuzzle.setLocationRelativeTo(null);;
+		framePuzzle.setLocationRelativeTo(null);
 	}
 	
 	//Create buttons
@@ -143,7 +143,10 @@ public class Two_D_sliding_block_puzzle extends JFrame implements KeyListener, M
 						blockSize);			
 				//System.out.println(String.format("(col): %d\tX: %3d\t(row):%d\tY %3d", col, (padding/2 + btnBorder * col + blockSize * col), row, (padding + btnBorder * row + blockSize * row))); //DEBUG
 				
-				btnArray[index].addMouseListener(btnListener);				
+				btnArray[index].addMouseListener(btnListener);
+				//KeyListener stops working because the container it is listening to has lost focus to the JButton.
+				//The solution is to make the JButton not able to gain focus by calling setFocusable(false) on it.
+				btnArray[index].setFocusable(false); 
 				framePuzzle.getContentPane().add(btnArray[index]);
 				index++;
 			}
@@ -158,6 +161,9 @@ public class Two_D_sliding_block_puzzle extends JFrame implements KeyListener, M
 	private static void setRestartBnt(){
 		
 		JButton btnRestart = new JButton("Restart the game");
+		//KeyListener stops working because the container it is listening to has lost focus to the JButton.
+		//The solution is to make the JButton not able to gain focus by calling setFocusable(false) on it.
+		btnRestart.setFocusable(false);
 		btnRestart.setBounds(123, 462, 189, 23);
 		btnRestart.addMouseListener(new MouseAdapter(){			
 			//Mouse listener event handler
@@ -209,6 +215,10 @@ public class Two_D_sliding_block_puzzle extends JFrame implements KeyListener, M
 		// TODO runObject()
 		framePuzzle = new JFrame();
 		
+		framePuzzle.setFocusable(true);
+		framePuzzle.setFocusTraversalKeysEnabled(false);
+		framePuzzle.addKeyListener(new arrowListener());
+		
 		btnColor = SystemColor.textHighlight;
 		frameColor = SystemColor.controlHighlight;
 		txtFieldColor = Color.lightGray;
@@ -219,8 +229,8 @@ public class Two_D_sliding_block_puzzle extends JFrame implements KeyListener, M
 		
 		btnArray = new JButton[]{button_1, button_2, button_3, button_4, 
 								button_5, button_6, button_7, button_8,
-								button_9,button_10,button_11,button_12,
-								button_13,button_14,button_15,button_16};
+								button_9, button_10, button_11, button_12,
+								button_13, button_14, button_15, button_16};
 		
 		setFrame();
 		setBtns();
@@ -229,6 +239,30 @@ public class Two_D_sliding_block_puzzle extends JFrame implements KeyListener, M
 		setLabels();
 		
 		framePuzzle.setVisible(true);
+	}
+	
+	//Move buttons UP
+	public static void moveUp(){
+		
+		// TODO moveUp()
+	}
+	
+	//Move buttons DOWN
+	public static void moveDown(){
+		
+		// TODO moveDown()
+	}
+	
+	//Move buttons LEFT
+	public static void moveLeft(){
+	
+		// TODO moveLeft()
+	}
+
+	//Move buttons RIGHT
+	public static void moveRight(){
+	
+		// TODO moveRight()
 	}
 	
 	@Override
@@ -253,29 +287,53 @@ public class Two_D_sliding_block_puzzle extends JFrame implements KeyListener, M
 
 	@Override
 	public void setResult(String newResult) {
-		// There id nothing to implement		
+		// There is nothing to implement		
 	}
 	
-	//Keyboard listener methods
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	//Inner Classes
+	
+	//Arrow key listener
+	private class arrowListener implements KeyListener{
 
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+			if(e.getKeyCode() == KeyEvent.VK_UP){
+				
+				Two_D_sliding_block_puzzle.moveUp();
+				System.out.println("VK_UP"); //DEBUG ONLY
+			}
+			
+			if(e.getKeyCode() == KeyEvent.VK_DOWN){
+				
+				Two_D_sliding_block_puzzle.moveDown();
+				System.out.println("VK_DOWN"); //DEBUG ONLY
+			}
 
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+			if(e.getKeyCode() == KeyEvent.VK_LEFT){
+	
+				Two_D_sliding_block_puzzle.moveLeft();
+				System.out.println("VK_LEFT"); //DEBUG ONLY
+			}
+
+			if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+	
+				Two_D_sliding_block_puzzle.moveRight();
+				System.out.println("VK_RIGHT"); //DEBUG ONLY
+			}
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {}
+
+		@Override
+		public void keyTyped(KeyEvent e) {}
 		
 	}
 	
-	//Inner Class
+	
+	//Mouse listener
 	private class mouseListener extends MouseAdapter{	
 		//Mouse listener event handler
 		public void mousePressed(MouseEvent me) {
@@ -296,6 +354,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements KeyListener, M
 			System.out.println(String.format("\nName: %2s\tLabel: %2s", button.getName(), button.getText())); //DEBUG
 		}		
 	}
+	
 
 	//END
 }
