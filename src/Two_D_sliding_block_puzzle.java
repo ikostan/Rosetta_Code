@@ -1,13 +1,17 @@
+
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import java.util.Random;
+
 
 public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 
@@ -70,6 +74,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 
 	"\nAdding a new tile on a blank space. Most of the time new \"2\" is to be added and occasionally (10% of the time) - \"4\"\n"+
 	"\nCheck for valid moves. The player shouldn't be able to skip their turn by trying a move that doesn't change the board.";
+	
 	private String taskLink = "<html><a href=\"https://rosettacode.org/wiki/2048\">Source</a></html>";
 	private static String result = "N/A";
 
@@ -79,6 +84,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 	private final static int padding = blockSize / 2;
 	private final static int size = blockSize * HEIGH + padding * 2;
 	private final static int btnBorder = 10;
+	private final static int startValue = 2;
 	
 	private static String btnLabel;
 	private static mouseListener btnListener;
@@ -101,6 +107,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 	public static void main(String[] args){
 		
 		// TODO Main function
+		
 		new Two_D_sliding_block_puzzle().runObject();
 	}
 	
@@ -109,6 +116,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 	public Two_D_sliding_block_puzzle(){
 				
 	}
+	
 	
 	//Setup all components inside the frame 
 	private static void setFrame(){
@@ -121,6 +129,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		framePuzzle.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		framePuzzle.setLocationRelativeTo(null);
 	}
+	
 	
 	//Create buttons
 	private static void setBtns(){
@@ -153,9 +162,15 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		}
 		
 		framePuzzle.getContentPane().revalidate();
-		framePuzzle.getContentPane().repaint();
+		framePuzzle.getContentPane().repaint();	
 		
+		//Create first two buttons
+		for(int i = 0; i < 2; i++){
+			
+			setRndBtn();
+		}
 	}
+	
 	
 	//Create restart button
 	private static void setRestartBnt(){
@@ -177,6 +192,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		framePuzzle.getContentPane().add(btnRestart);
 	}
 	
+	
 	//Create all text fields
 	private static void setTxtFields(){
 		
@@ -197,6 +213,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		framePuzzle.getContentPane().add(textBestScore);
 	}
 	
+	
 	//Create all labels
 	private static void setLabels(){
 		
@@ -208,6 +225,84 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		lblBestScore.setBounds(224, 11, 65, 14);
 		framePuzzle.getContentPane().add(lblBestScore);
 	}
+	
+	
+	//Check is there eny empty slots left
+	private static boolean isEmpty(){
+		
+		boolean empty = false;
+		
+		for(JButton btn : btnArray){
+			
+			if(btn.getText() == ""){
+				empty = true;
+				break;
+			}
+		}
+		
+		System.out.println(String.format("DEBUG: running isEmpty -> %s", empty));
+		return empty;
+	}
+	
+	
+	//Create a new basic button
+	private static void setRndBtn(){
+		
+		Random rnd = new Random();
+		int random;
+		boolean isEmptyLeft = isEmpty();
+				
+		while(isEmptyLeft){
+			
+			random = rnd.nextInt(16);
+			
+			if(btnArray[random].getText() == ""){
+				
+				btnArray[random].setText("2");
+				setBtnFont(btnArray[random]);
+				break;
+			}
+			
+			System.out.println("DEBUG: running genRndBtn");
+		}
+	}
+	
+	
+	//Set button text font, color and size	
+	private static void setBtnFont(JButton btn){
+		
+		String txt = btn.getText();
+		
+		switch(txt.length()){
+		
+		case 1:
+			btn.setForeground(btnColor.RED);
+			btn.setBackground(btnColor.CYAN);
+			btn.setFont(new Font("Arial", Font.PLAIN, 40));
+			break;
+		case 2:
+			btn.setForeground(btnColor.YELLOW);
+			btn.setBackground(btnColor.brighter());
+			btn.setFont(new Font("Arial", Font.PLAIN, 30));
+			break;
+		case 3:
+			btn.setForeground(btnColor.BLUE);
+			btn.setBackground(btnColor.GRAY);
+			btn.setFont(new Font("Arial", Font.PLAIN, 25));
+			break;
+		case 4:
+			btn.setForeground(btnColor.GREEN);
+			btn.setBackground(btnColor.YELLOW);
+			btn.setFont(new Font("Arial", Font.PLAIN, 20));
+			break;
+		default:
+			break;
+		
+		}
+		
+		framePuzzle.getContentPane().revalidate();
+		framePuzzle.getContentPane().repaint();
+	} 
 	
 	@Override
 	public void runObject() {
@@ -239,6 +334,7 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 		setLabels();
 		
 		framePuzzle.setVisible(true);
+			
 	}
 	
 	//Move buttons UP
@@ -322,6 +418,8 @@ public class Two_D_sliding_block_puzzle extends JFrame implements MainInterface{
 				Two_D_sliding_block_puzzle.moveRight();
 				System.out.println("VK_RIGHT"); //DEBUG ONLY
 			}
+			
+			setRndBtn();
 		}
 
 		@Override
